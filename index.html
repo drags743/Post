@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InstaCopy FR</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f2;color:#1a1a1a;min-height:100vh}
+.app{max-width:1100px;margin:0 auto;padding:1.5rem}
+.header{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(0,0,0,0.08)}
+.logo{width:38px;height:38px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:20px}
+.header h1{font-size:20px;font-weight:600}
+.header p{font-size:13px;color:#888;margin-top:1px}
+.tabs{display:flex;gap:4px;margin-bottom:1.5rem;background:#ebebeb;padding:4px;border-radius:10px;width:fit-content}
+.tab{padding:7px 18px;border-radius:7px;border:none;background:transparent;cursor:pointer;font-size:14px;color:#666;transition:all 0.15s;font-family:inherit}
+.tab.active{background:white;color:#1a1a1a;font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.panel{display:none}.panel.active{display:block}
+.card{background:white;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.card-title{font-size:11px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem}
+.btn{padding:8px 16px;border-radius:8px;border:1px solid rgba(0,0,0,0.15);background:white;cursor:pointer;font-size:14px;color:#1a1a1a;transition:all 0.15s;display:inline-flex;align-items:center;gap:6px;font-family:inherit}
+.btn:hover{background:#f5f5f2}
+.btn.primary{background:#1a1a1a;color:white;border-color:#1a1a1a}
+.btn.primary:hover{background:#333}
+.btn.success{background:#16a34a;color:white;border-color:#16a34a}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.input{width:100%;padding:9px 12px;border:1px solid rgba(0,0,0,0.15);border-radius:8px;font-size:14px;background:white;color:#1a1a1a;outline:none;font-family:inherit}
+.input:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,0.1)}
+.row{display:flex;gap:8px;margin-bottom:8px}
+.status{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:1rem}
+.status.info{background:#eff6ff;color:#1d4ed8}
+.status.success{background:#f0fdf4;color:#16a34a}
+.status.error{background:#fef2f2;color:#dc2626}
+.status.warning{background:#fffbeb;color:#d97706}
+.spinner{width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+ 
+/* Config panel */
+.config-section{background:#fffbeb;border:1px solid rgba(217,119,6,0.2);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.config-section p{font-size:13px;color:#92400e;line-height:1.6}
+.config-section a{color:#b45309;font-weight:500}
+.config-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.config-grid{grid-template-columns:1fr}}
+.label{font-size:12px;color:#666;margin-bottom:4px;display:block}
+.key-saved{font-size:12px;color:#16a34a;margin-top:4px}
+ 
+/* Library */
+.lib-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+.photo-count{font-size:13px;color:#888;margin-left:auto}
+.drop-zone{border:2px dashed rgba(0,0,0,0.12);border-radius:12px;padding:2rem;text-align:center;cursor:pointer;transition:all 0.15s;margin-bottom:1rem;color:#888;font-size:14px}
+.drop-zone:hover,.drop-zone.over{background:#eff6ff;border-color:#3b82f6;color:#1d4ed8}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.photo-card{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);cursor:pointer}
+.photo-card img{width:100%;height:100%;object-fit:cover}
+.photo-card .overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:0.15s;display:flex;align-items:center;justify-content:center}
+.photo-card:hover .overlay{background:rgba(0,0,0,0.3)}
+.del-btn{opacity:0;background:rgba(255,255,255,0.9);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:13px;transition:0.15s;display:flex;align-items:center;justify-content:center}
+.photo-card:hover .del-btn{opacity:1}
+.empty-state{text-align:center;padding:3rem;color:#aaa;font-size:14px}
+input[type=file]{display:none}
+ 
+/* Clone */
+.clone-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+@media(max-width:700px){.clone-grid{grid-template-columns:1fr}}
+.paste-area{border:2px dashed rgba(0,0,0,0.1);border-radius:8px;padding:1rem;min-height:90px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#aaa;font-size:13px;margin-top:10px;transition:0.15s}
+.paste-area:hover{border-color:#3b82f6;color:#3b82f6}
+.paste-area img{max-width:100%;max-height:180px;border-radius:6px;object-fit:contain}
+.caption-box{background:#f8f8f5;border-radius:8px;padding:1rem;font-size:14px;line-height:1.7;min-height:80px;white-space:pre-wrap}
+.caption-edit{width:100%;border:1px solid rgba(0,0,0,0.15);border-radius:8px;padding:10px;font-size:14px;line-height:1.7;min-height:120px;resize:vertical;font-family:inherit;outline:none}
+.matches-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.match-card{border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,0.08);cursor:pointer;position:relative;aspect-ratio:1;transition:0.15s}
+.match-card img{width:100%;height:100%;object-fit:cover}
+.match-card.selected{outline:3px solid #1a1a1a;outline-offset:2px}
+.score-badge{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.65);color:white;border-radius:5px;font-size:10px;padding:2px 5px}
+.result-preview{border-radius:10px;overflow:hidden;background:#000;aspect-ratio:1;position:relative}
+.result-preview img{width:100%;height:100%;object-fit:cover;display:block}
+.result-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.6));padding:12px;color:white;font-size:11px;line-height:1.4}
+.actions-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tag{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:11px;background:#f0f0ec;color:#666;margin:2px}
+ 
+/* Spy */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
+.stat-box{background:#f5f5f2;border-radius:8px;padding:10px 12px}
+.stat-box .val{font-size:22px;font-weight:600;margin-top:2px}
+.stat-box .lbl{font-size:11px;color:#888}
+.comp-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06)}
+.comp-row:last-child{border-bottom:none}
+.avatar{width:36px;height:36px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#1d4ed8;flex-shrink:0}
+.badge{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500}
+.badge.green{background:#dcfce7;color:#16a34a}
+.badge.blue{background:#dbeafe;color:#1d4ed8}
+.badge.gray{background:#f0f0ec;color:#666}
+.badge.red{background:#fee2e2;color:#dc2626}
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-top:1rem}
+.post-card{background:white;border:1px solid rgba(0,0,0,0.08);border-radius:10px;overflow:hidden;cursor:pointer;transition:0.15s}
+.post-card:hover{border-color:rgba(0,0,0,0.2)}
+.post-thumb{aspect-ratio:1;background:#f0f0ec;position:relative;overflow:hidden}
+.post-thumb img{width:100%;height:100%;object-fit:cover}
+.slides-badge{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.65);color:white;border-radius:5px;font-size:10px;padding:2px 5px}
+.rank-num{position:absolute;top:6px;left:6px;width:22px;height:22px;border-radius:50%;background:#1a1a1a;color:white;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.post-body{padding:10px}
+.post-stats{display:flex;gap:8px;font-size:11px;color:#888;margin-bottom:5px}
+.post-caption{font-size:12px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.filter-bar{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+.filter-btn{padding:5px 14px;border-radius:20px;border:1px solid rgba(0,0,0,0.1);background:transparent;cursor:pointer;font-size:12px;color:#666;transition:0.15s;font-family:inherit}
+.filter-btn.active{background:#1a1a1a;color:white;border-color:#1a1a1a}
+.progress-bar{height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden;margin:6px 0}
+.progress-fill{height:100%;background:#1a1a1a;border-radius:2px;transition:width 0.4s}
+ 
+/* Modal */
+.modal-wrap{display:none;background:rgba(0,0,0,0.5);border-radius:12px;padding:1.5rem;min-height:300px}
+.modal{background:white;border-radius:12px;padding:1.5rem;max-width:640px;margin:0 auto}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.slides-strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:1rem}
+.slide-mini{width:72px;height:72px;border-radius:6px;background:#f0f0ec;flex-shrink:0;overflow:hidden;border:1px solid rgba(0,0,0,0.08);position:relative;cursor:pointer}
+.slide-mini img{width:100%;height:100%;object-fit:cover}
+.slide-mini .snum{position:absolute;bottom:2px;right:3px;font-size:9px;color:white;background:rgba(0,0,0,0.5);border-radius:3px;padding:1px 3px}
+ 
+/* History */
+.hist-card{background:white;border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:1rem;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="logo">📸</div>
+    <div>
+      <h1>InstaCopy FR</h1>
+      <p>Clone à ta sauce — tes photos, ta langue</p>
+    </div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+      <span id="sync-status" style="font-size:12px;color:#aaa"></span>
+    </div>
+  </div>
+ 
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('config',this)">⚙️ Config</button>
+    <button class="tab" onclick="switchTab('library',this)">📚 Bibliothèque</button>
+    <button class="tab" onclick="switchTab('clone',this)">✂️ Cloner</button>
+    <button class="tab" onclick="switchTab('spy',this)">🔍 Spy</button>
+    <button class="tab" onclick="switchTab('history',this)">🕐 Historique</button>
+  </div>
+ 
+  <!-- CONFIG -->
+  <div id="panel-config" class="panel active">
+    <div class="config-section">
+      <p><strong>Configuration requise une seule fois.</strong> Tes clés sont stockées dans Supabase et synchronisées sur tous tes appareils.</p>
+    </div>
+ 
+    <div class="card">
+      <div class="card-title">Connexion Supabase</div>
+      <div class="config-grid">
+        <div>
+          <label class="label">Project URL</label>
+          <input class="input" id="sb-url" placeholder="https://xxxx.supabase.co" type="text">
+        </div>
+        <div>
+          <label class="label">Anon Key (eyJ...)</label>
+          <input class="input" id="sb-key" placeholder="eyJhbGciOiJIUzI1NiIs..." type="password">
+        </div>
+      </div>
+      <button class="btn primary" style="margin-top:12px" onclick="initSupabase()">Connecter Supabase</button>
+      <div id="sb-status" style="font-size:12px;margin-top:6px"></div>
+    </div>
+ 
+    <div class="card" id="keys-card" style="display:none">
+      <div class="card-title">Clés API</div>
+      <div class="config-grid">
+        <div>
+          <label class="label">Clé Anthropic (Claude)</label>
+          <input class="input" id="anthropic-key" placeholder="sk-ant-..." type="password">
+          <div class="key-saved" id="ant-saved" style="display:none">✓ Sauvegardée</div>
+        </div>
+        <div>
+          <label class="label">Clé Apify</label>
+          <input class="input" id="apify-key" placeholder="apify_api_..." type="password">
+          <div class="key-saved" id="apify-saved" style="display:none">✓ Sauvegardée</div>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="label">Nb de posts à scraper par concurrent</label>
+        <input class="input" id="posts-limit" type="number" value="30" min="5" max="100" style="width:120px">
+      </div>
+      <button class="btn primary" style="margin-top:12px" onclick="saveKeys()">Sauvegarder les clés</button>
+    </div>
+ 
+    <div class="card" id="status-card" style="display:none">
+      <div class="card-title">Statut</div>
+      <div id="config-status-list"></div>
+    </div>
+  </div>
+ 
+  <!-- LIBRARY -->
+  <div id="panel-library" class="panel">
+    <div id="lib-status"></div>
+    <div class="lib-top">
+      <button class="btn primary" onclick="document.getElementById('file-input').click()">+ Ajouter des photos</button>
+      <input type="file" id="file-input" multiple accept="image/*" onchange="uploadPhotos(event)">
+      <span class="photo-count" id="photo-count">0 photo(s)</span>
+    </div>
+    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+      <div style="font-size:28px;margin-bottom:6px">🖼️</div>
+      Glisse tes photos ici ou clique pour importer<br>
+      <span style="font-size:12px;margin-top:4px;display:block">JPG, PNG, HEIC — jusqu'à 200 photos — synchronisées sur tous tes appareils</span>
+    </div>
+    <div id="upload-progress" style="display:none">
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+      <div id="prog-label" style="font-size:12px;color:#888;margin-top:4px"></div>
+    </div>
+    <div id="photo-grid" class="photo-grid"></div>
+    <div id="lib-empty" class="empty-state" style="display:none">
+      <div style="font-size:32px">📂</div>
+      <p style="margin-top:8px">Ta bibliothèque est vide — ajoute des photos pour commencer</p>
+    </div>
+  </div>
+ 
+  <!-- CLONE -->
+  <div id="panel-clone" class="panel">
+    <div id="clone-status"></div>
+    <div class="clone-grid">
+      <div>
+        <div class="card">
+          <div class="card-title">Post à cloner</div>
+          <div class="row">
+            <input class="input" id="insta-url" placeholder="https://www.instagram.com/p/...">
+            <button class="btn primary" onclick="analyzePost()">Analyser</button>
+          </div>
+          <div class="paste-area" id="paste-area" onclick="document.getElementById('post-img-input').click()" ondragover="ev.preventDefault()" ondrop="onImgDrop(event)">
+            <div style="font-size:20px">📷</div>
+            <span>Ou colle / glisse un screenshot</span>
+            <input type="file" id="post-img-input" accept="image/*" onchange="handlePostImg(event)">
+          </div>
+        </div>
+        <div class="card" id="analysis-card" style="display:none">
+          <div class="card-title">Analyse</div>
+          <div id="analysis-tags" style="margin-bottom:8px"></div>
+          <div id="analysis-text" style="font-size:13px;color:#666;line-height:1.6"></div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">Légende traduite</div>
+          <div id="caption-area"><div class="caption-box" style="color:#ccc;font-style:italic">La légende apparaîtra ici après analyse...</div></div>
+          <div id="caption-actions" style="display:none" class="actions-row">
+            <button class="btn" onclick="copyCaption()">Copier</button>
+            <button class="btn" onclick="regenCaption()">Regénérer</button>
+            <button class="btn" onclick="editCaption()">Modifier</button>
+          </div>
+        </div>
+        <div class="card" id="matches-card" style="display:none">
+          <div class="card-title">Tes photos similaires</div>
+          <div id="matches-grid" class="matches-grid"></div>
+          <div style="height:1px;background:rgba(0,0,0,0.06);margin:1rem 0"></div>
+          <div class="card-title">Aperçu final</div>
+          <div class="result-preview" id="result-preview">
+            <div style="display:flex;align-items:center;justify-content:center;height:200px;color:#ccc;font-size:13px">Sélectionne une photo</div>
+          </div>
+          <div class="actions-row">
+            <button class="btn primary" id="dl-btn" onclick="downloadPost()" style="display:none">⬇ Télécharger</button>
+            <button class="btn" id="save-hist-btn" onclick="saveToHistory()" style="display:none">Sauvegarder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- SPY -->
+  <div id="panel-spy" class="panel">
+    <div id="spy-status"></div>
+    <div class="stat-grid" id="spy-stats" style="display:none">
+      <div class="stat-box"><div class="lbl">Posts collectés</div><div class="val" id="s-posts">0</div></div>
+      <div class="stat-box"><div class="lbl">Slides stockées</div><div class="val" id="s-slides">0</div></div>
+      <div class="stat-box"><div class="lbl">Concurrents</div><div class="val" id="s-comps">0</div></div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-title">Ajouter un concurrent</div>
+      <div class="row">
+        <input class="input" id="new-handle" placeholder="@pseudo ou https://instagram.com/pseudo">
+        <button class="btn primary" onclick="addCompetitor()">Ajouter</button>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-title">Mes concurrents (<span id="comp-count">0</span>)</div>
+      <div id="comp-list"><div class="empty-state" style="padding:1rem">Aucun concurrent</div></div>
+      <div id="scrape-all-wrap" style="display:none;margin-top:1rem;display:flex;align-items:center;gap:12px">
+        <button class="btn primary" onclick="scrapeAll()" id="scrape-all-btn">Scraper tous</button>
+        <span style="font-size:12px;color:#888">1 run Apify par concurrent</span>
+      </div>
+    </div>
+ 
+    <div class="filter-bar" id="spy-filters" style="display:none">
+      <button class="filter-btn active" onclick="setSpyFilter('all',this)">Tous</button>
+      <button class="filter-btn" onclick="setSpyFilter('carousel',this)">Carrousels</button>
+      <button class="filter-btn" onclick="setSpyFilter('image',this)">Photos</button>
+      <select class="input" id="comp-filter" style="width:auto;padding:5px 10px;font-size:13px;margin-left:auto" onchange="renderSpyPosts()"></select>
+    </div>
+    <div id="spy-posts-container"></div>
+ 
+    <div id="slide-modal" class="modal-wrap">
+      <div class="modal">
+        <div class="modal-header">
+          <div style="font-weight:600;font-size:15px" id="modal-title">Slides</div>
+          <button class="btn" onclick="closeModal()" style="padding:4px 10px;font-size:12px">Fermer ✕</button>
+        </div>
+        <div id="modal-strip" class="slides-strip"></div>
+        <div id="modal-caption" style="font-size:13px;line-height:1.6;color:#666;margin-bottom:1rem"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="modal-actions"></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- HISTORY -->
+  <div id="panel-history" class="panel">
+    <div id="hist-list"></div>
+    <div id="hist-empty" class="empty-state" style="display:none">
+      <div style="font-size:32px">🕐</div>
+      <p style="margin-top:8px">Aucun post généré pour l'instant</p>
+    </div>
+  </div>
+</div>
+ 
+<script>
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let sb = null;
+let photos = [];
+let competitors = [];
+let spyPosts = [];
+let history = [];
+let currentAnalysis = null;
+let currentCaption = '';
+let currentPostImg = null;
+let selectedMatchIdx = -1;
+let selectedMatchSrc = '';
+let spyFilter = 'all';
+ 
+// ─── SUPABASE INIT ────────────────────────────────────────────────────────────
+async function initSupabase() {
+  const url = document.getElementById('sb-url').value.trim();
+  const key = document.getElementById('sb-key').value.trim();
+  if (!url || !key) { setStatus('sb-status','Entre l\'URL et la clé Supabase','error'); return; }
+ 
+  try {
+    sb = supabase.createClient(url, key);
+    await setupTables();
+    localStorage.setItem('sb_url', url);
+    localStorage.setItem('sb_key', key);
+    setStatus('sb-status','✓ Supabase connecté !','success');
+    document.getElementById('keys-card').style.display = 'block';
+    document.getElementById('status-card').style.display = 'block';
+    await loadAllData();
+    updateSyncStatus('Connecté');
+  } catch(e) {
+    setStatus('sb-status','Erreur: ' + e.message,'error');
+  }
+}
+ 
+async function setupTables() {
+  // Create tables via RPC if not exist — using simple inserts to check
+  const tables = ['photos','competitors','spy_posts','history','settings'];
+  // Tables are created via Supabase SQL editor — we just verify connection
+  const { error } = await sb.from('settings').select('key').limit(1);
+  if (error && error.code === '42P01') {
+    // Tables don't exist yet — show SQL instructions
+    showSQLInstructions();
+    throw new Error('Tables manquantes — voir instructions ci-dessous');
+  }
+}
+ 
+function showSQLInstructions() {
+  document.getElementById('config-status-list').innerHTML = `
+    <div class="status warning">
+      <div>
+        <strong>Étape requise :</strong> Crée les tables dans Supabase.<br>
+        <span style="font-size:12px">Va dans ton projet Supabase → SQL Editor → colle et exécute ce code :</span>
+        <pre style="background:#1a1a1a;color:#fff;padding:12px;border-radius:8px;font-size:11px;margin-top:8px;overflow-x:auto;white-space:pre-wrap">create table if not exists settings (key text primary key, value text);
+create table if not exists photos (id uuid default gen_random_uuid() primary key, name text, url text, created_at timestamptz default now());
+create table if not exists competitors (id uuid default gen_random_uuid() primary key, handle text unique, status text default 'idle', post_count int default 0, last_scraped timestamptz, created_at timestamptz default now());
+create table if not exists spy_posts (id text primary key, owner text, type text, likes int default 0, comments int default 0, views int default 0, caption text, display_url text, slides jsonb, url text, created_at timestamptz default now());
+create table if not exists history (id uuid default gen_random_uuid() primary key, caption text, post_url text, owner text, photo_url text, created_at timestamptz default now());
+create storage bucket if not exists photos;
+insert into storage.buckets (id, name, public) values ('photos', 'photos', true) on conflict do nothing;</pre>
+        <button class="btn primary" style="margin-top:8px;font-size:12px" onclick="initSupabase()">J'ai exécuté le SQL — Reconnecter</button>
+      </div>
+    </div>`;
+}
+ 
+async function loadAllData() {
+  await Promise.all([loadPhotos(), loadCompetitors(), loadSpyPosts(), loadHistory(), loadSettings()]);
+  renderConfigStatus();
+}
+ 
+async function loadSettings() {
+  if (!sb) return;
+  const { data } = await sb.from('settings').select('*');
+  if (!data) return;
+  const map = {};
+  data.forEach(r => map[r.key] = r.value);
+  if (map.anthropic_key) { document.getElementById('anthropic-key').value = map.anthropic_key; document.getElementById('ant-saved').style.display='block'; }
+  if (map.apify_key) { document.getElementById('apify-key').value = map.apify_key; document.getElementById('apify-saved').style.display='block'; }
+  if (map.posts_limit) document.getElementById('posts-limit').value = map.posts_limit;
+}
+ 
+async function saveKeys() {
+  if (!sb) { alert('Connecte Supabase d\'abord'); return; }
+  const antKey = document.getElementById('anthropic-key').value.trim();
+  const apifyKey = document.getElementById('apify-key').value.trim();
+  const limit = document.getElementById('posts-limit').value;
+ 
+  const upserts = [];
+  if (antKey) upserts.push({ key: 'anthropic_key', value: antKey });
+  if (apifyKey) upserts.push({ key: 'apify_key', value: apifyKey });
+  upserts.push({ key: 'posts_limit', value: limit });
+ 
+  await sb.from('settings').upsert(upserts, { onConflict: 'key' });
+  document.getElementById('ant-saved').style.display = antKey ? 'block' : 'none';
+  document.getElementById('apify-saved').style.display = apifyKey ? 'block' : 'none';
+  renderConfigStatus();
+}
+ 
+function getKey(id) { return document.getElementById(id).value.trim(); }
+ 
+function renderConfigStatus() {
+  const antOk = !!getKey('anthropic-key');
+  const apifyOk = !!getKey('apify-key');
+  const sbOk = !!sb;
+  document.getElementById('config-status-list').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+      <div style="display:flex;align-items:center;gap:8px">${sbOk?'✅':'❌'} Supabase ${sbOk?'connecté':'non connecté'}</div>
+      <div style="display:flex;align-items:center;gap:8px">${antOk?'✅':'❌'} Clé Anthropic (Claude) ${antOk?'présente':'manquante'}</div>
+      <div style="display:flex;align-items:center;gap:8px">${apifyOk?'✅':'❌'} Clé Apify ${apifyOk?'présente':'manquante'}</div>
+      <div style="display:flex;align-items:center;gap:8px">${photos.length>0?'✅':'⚪'} ${photos.length} photo(s) dans la bibliothèque</div>
+    </div>`;
+}
+ 
+// ─── TABS ────────────────────────────────────────────────────────────────────
+function switchTab(id, el) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+  if (id==='library') renderLibrary();
+  if (id==='spy') renderSpyPosts();
+  if (id==='history') renderHistory();
+}
+ 
+function setStatus(elId, msg, type) {
+  const icons = {info:'<div class="spinner"></div>',success:'✓',error:'✗',warning:'!'};
+  document.getElementById(elId).innerHTML = `<div class="status ${type}">${icons[type]} ${msg}</div>`;
+}
+function clearStatus(elId) { document.getElementById(elId).innerHTML=''; }
+function updateSyncStatus(msg) { document.getElementById('sync-status').textContent = msg; }
+ 
+// ─── LIBRARY ─────────────────────────────────────────────────────────────────
+async function loadPhotos() {
+  if (!sb) return;
+  const { data } = await sb.from('photos').select('*').order('created_at', { ascending: false });
+  photos = data || [];
+  renderLibrary();
+}
+ 
+function renderLibrary() {
+  const grid = document.getElementById('photo-grid');
+  const empty = document.getElementById('lib-empty');
+  document.getElementById('photo-count').textContent = photos.length + ' photo(s)';
+  if (photos.length === 0) { grid.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = photos.map(p => `
+    <div class="photo-card">
+      <img src="${p.url}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23f0f0ec%22/></svg>'">
+      <div class="overlay"><button class="del-btn" onclick="deletePhoto('${p.id}','${p.name}',event)">✕</button></div>
+    </div>`).join('');
+}
+ 
+async function uploadPhotos(e) {
+  if (!sb) { alert('Connecte Supabase d\'abord dans Config'); return; }
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  document.getElementById('upload-progress').style.display='block';
+  let done = 0;
+  for (const file of files) {
+    const path = `${Date.now()}_${file.name.replace(/\s/g,'_')}`;
+    document.getElementById('prog-label').textContent = `Upload ${done+1}/${files.length} : ${file.name}`;
+    const { error } = await sb.storage.from('photos').upload(path, file, { contentType: file.type });
+    if (!error) {
+      const { data: { publicUrl } } = sb.storage.from('photos').getPublicUrl(path);
+      await sb.from('photos').insert({ name: file.name, url: publicUrl });
+    }
+    done++;
+    document.getElementById('prog-fill').style.width = Math.round(done/files.length*100)+'%';
+  }
+  document.getElementById('upload-progress').style.display='none';
+  e.target.value='';
+  await loadPhotos();
+  setStatus('lib-status', `${done} photo(s) uploadée(s) avec succès`, 'success');
+  setTimeout(()=>clearStatus('lib-status'), 3000);
+}
+ 
+async function deletePhoto(id, name, e) {
+  e.stopPropagation();
+  if (!confirm('Supprimer cette photo ?')) return;
+  await sb.storage.from('photos').remove([name]);
+  await sb.from('photos').delete().eq('id', id);
+  await loadPhotos();
+}
+ 
+// Drag & drop library
+const dz = document.getElementById('drop-zone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('over'); const input = document.getElementById('file-input'); const dt = e.dataTransfer; if(dt.files.length){ const ev = {target:{files:dt.files,value:''}}; uploadPhotos(ev); }});
+ 
+// ─── CLAUDE API ───────────────────────────────────────────────────────────────
+async function callClaude(messages, system='') {
+  const key = getKey('anthropic-key');
+  if (!key) throw new Error('Clé Anthropic manquante — va dans Config');
+  const body = { model:'claude-sonnet-4-20250514', max_tokens:1000, messages };
+  if (system) body.system = system;
+  const r = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify(body)
+  });
+  const d = await r.json();
+  if (d.error) throw new Error(d.error.message);
+  return d.content.map(c=>c.text||'').join('');
+}
+ 
+// ─── CLONE ────────────────────────────────────────────────────────────────────
+function onImgDrop(e) {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) handlePostImgFile(file);
+}
+function handlePostImg(e) { if(e.target.files[0]) handlePostImgFile(e.target.files[0]); }
+function handlePostImgFile(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    currentPostImg = ev.target.result;
+    const pa = document.getElementById('paste-area');
+    pa.innerHTML = `<img src="${currentPostImg}" style="max-height:180px;border-radius:6px">`;
+  };
+  reader.readAsDataURL(file);
+}
+ 
+async function analyzePost() {
+  const url = document.getElementById('insta-url').value.trim();
+  if (!url && !currentPostImg) { setStatus('clone-status','Colle une URL ou un screenshot','error'); return; }
+  if (photos.length === 0) { setStatus('clone-status','Ajoute des photos dans ta bibliothèque d\'abord','error'); return; }
+ 
+  setStatus('clone-status','Analyse du post en cours...','info');
+  try {
+    const sys = `Tu es expert Instagram. Réponds UNIQUEMENT en JSON valide sans markdown:
+{"style":"description style visuel","mood":"ambiance 2-3 mots","themes":["t1","t2","t3"],"original_caption":"légende originale","caption_fr":"légende adaptée en français même ton motivant avec emojis et hashtags FR","aspect_ratio":"square|portrait|landscape"}`;
+ 
+    let msgs;
+    if (currentPostImg) {
+      const b64 = currentPostImg.split(',')[1];
+      const mt = currentPostImg.startsWith('data:image/png') ? 'image/png' : 'image/jpeg';
+      msgs = [{role:'user',content:[
+        {type:'image',source:{type:'base64',media_type:mt,data:b64}},
+        {type:'text',text:`Analyse ce post Instagram${url?' (URL: '+url+')':''}. Extrais style, ambiance, légende et traduis en français motivant.`}
+      ]}];
+    } else {
+      msgs = [{role:'user',content:`Analyse ce post Instagram: ${url}. Génère comme si c'était un post fitness/motivation anglophone et crée une légende française.`}];
+    }
+ 
+    const raw = await callClaude(msgs, sys);
+    currentAnalysis = JSON.parse(raw.replace(/```json|```/g,'').trim());
+ 
+    document.getElementById('analysis-card').style.display='block';
+    document.getElementById('analysis-tags').innerHTML =
+      (currentAnalysis.themes||[]).map(t=>`<span class="tag">${t}</span>`).join('') +
+      `<span class="tag" style="background:#dbeafe;color:#1d4ed8">${currentAnalysis.mood||''}</span>`;
+    document.getElementById('analysis-text').textContent = currentAnalysis.style||'';
+ 
+    currentCaption = currentAnalysis.caption_fr||'';
+    document.getElementById('caption-area').innerHTML = `<div class="caption-box">${currentCaption}</div>`;
+    document.getElementById('caption-actions').style.display='flex';
+ 
+    setStatus('clone-status','Recherche de tes photos similaires...','info');
+    await findMatches();
+ 
+    clearStatus('clone-status');
+    setStatus('clone-status','Post analysé ! Sélectionne une photo.','success');
+    setTimeout(()=>clearStatus('clone-status'), 3000);
+  } catch(e) { setStatus('clone-status','Erreur: '+e.message,'error'); }
+}
+ 
+async function findMatches() {
+  const sample = photos.slice(0,12);
+  if (!sample.length) return;
+ 
+  const sys = `Expert photo Instagram. Réponds UNIQUEMENT en JSON: {"ranked":[{"index":0,"score":95,"reason":"courte raison"},{"index":1,"score":80,"reason":"..."},{"index":2,"score":70,"reason":"..."}]}`;
+ 
+  // Fetch first few photos as base64 for vision
+  const photoMsgs = [];
+  for (const p of sample.slice(0,6)) {
+    try {
+      const r = await fetch(p.url);
+      const blob = await r.blob();
+      const b64 = await blobToB64(blob);
+      photoMsgs.push({type:'image',source:{type:'base64',media_type:blob.type||'image/jpeg',data:b64.split(',')[1]}});
+    } catch(e) {}
+  }
+ 
+  if (!photoMsgs.length) {
+    renderFallbackMatches(sample);
+    return;
+  }
+ 
+  try {
+    const msgs = [{role:'user',content:[
+      ...photoMsgs,
+      {type:'text',text:`Classe les 3 meilleures parmi ces ${photoMsgs.length} photos pour ce style: "${currentAnalysis?.style}". Ambiance: "${currentAnalysis?.mood}". Retourne exactement 3 résultats.`}
+    ]}];
+    const raw = await callClaude(msgs, sys);
+    const result = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    renderMatches(result.ranked||[], sample);
+  } catch(e) { renderFallbackMatches(sample); }
+}
+ 
+function blobToB64(blob) {
+  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(blob); });
+}
+ 
+function renderMatches(ranked, sample) {
+  document.getElementById('matches-card').style.display='block';
+  const top3 = ranked.slice(0,3);
+  document.getElementById('matches-grid').innerHTML = top3.map((r,i) => {
+    const p = sample[r.index];
+    if (!p) return '';
+    return `<div class="match-card" onclick="selectMatch(this,'${p.url}')" data-url="${p.url}">
+      <img src="${p.url}" loading="lazy">
+      <span class="score-badge">${r.score}%</span>
+    </div>`;
+  }).join('');
+}
+ 
+function renderFallbackMatches(sample) {
+  document.getElementById('matches-card').style.display='block';
+  document.getElementById('matches-grid').innerHTML = sample.slice(0,3).map((p,i) =>
+    `<div class="match-card" onclick="selectMatch(this,'${p.url}')" data-url="${p.url}">
+      <img src="${p.url}" loading="lazy">
+    </div>`).join('');
+}
+ 
+function selectMatch(el, src) {
+  document.querySelectorAll('.match-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedMatchSrc = src;
+  const preview = document.getElementById('result-preview');
+  preview.innerHTML = `
+    <img src="${src}" style="width:100%;height:100%;object-fit:cover">
+    <div class="result-overlay">${currentCaption.substring(0,80)}...</div>`;
+  document.getElementById('dl-btn').style.display='inline-flex';
+  document.getElementById('save-hist-btn').style.display='inline-flex';
+}
+ 
+function copyCaption() {
+  navigator.clipboard.writeText(currentCaption).then(()=>{
+    setStatus('clone-status','Légende copiée !','success');
+    setTimeout(()=>clearStatus('clone-status'),2000);
+  });
+}
+ 
+async function regenCaption() {
+  if (!currentAnalysis) return;
+  setStatus('clone-status','Génération d\'une nouvelle version...','info');
+  try {
+    const msg = `Génère une nouvelle légende Instagram en français, différente mais même ton motivant. Thèmes: ${(currentAnalysis.themes||[]).join(', ')}. Original: "${currentAnalysis.original_caption||''}". Réponds uniquement avec la légende.`;
+    currentCaption = (await callClaude([{role:'user',content:msg}])).trim();
+    document.getElementById('caption-area').innerHTML = `<div class="caption-box">${currentCaption}</div>`;
+    clearStatus('clone-status');
+  } catch(e) { setStatus('clone-status','Erreur: '+e.message,'error'); }
+}
+ 
+function editCaption() {
+  document.getElementById('caption-area').innerHTML = `<textarea class="caption-edit" id="cap-ta">${currentCaption}</textarea>`;
+  document.getElementById('caption-actions').innerHTML = `
+    <button class="btn primary" onclick="saveCaptionEdit()">Sauvegarder</button>
+    <button class="btn" onclick="cancelCaptionEdit()">Annuler</button>`;
+}
+function saveCaptionEdit() {
+  currentCaption = document.getElementById('cap-ta').value;
+  document.getElementById('caption-area').innerHTML = `<div class="caption-box">${currentCaption}</div>`;
+  document.getElementById('caption-actions').innerHTML = `
+    <button class="btn" onclick="copyCaption()">Copier</button>
+    <button class="btn" onclick="regenCaption()">Regénérer</button>
+    <button class="btn" onclick="editCaption()">Modifier</button>`;
+}
+function cancelCaptionEdit() {
+  document.getElementById('caption-area').innerHTML = `<div class="caption-box">${currentCaption}</div>`;
+  document.getElementById('caption-actions').innerHTML = `
+    <button class="btn" onclick="copyCaption()">Copier</button>
+    <button class="btn" onclick="regenCaption()">Regénérer</button>
+    <button class="btn" onclick="editCaption()">Modifier</button>`;
+}
+ 
+function downloadPost() {
+  if (!selectedMatchSrc) return;
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080; canvas.height = 1080;
+  const ctx = canvas.getContext('2d');
+  const img = new Image(); img.crossOrigin='anonymous';
+  img.onload = () => {
+    const s = Math.max(1080/img.width, 1080/img.height);
+    const w = img.width*s, h = img.height*s;
+    ctx.drawImage(img,(1080-w)/2,(1080-h)/2,w,h);
+    const a = document.createElement('a');
+    a.download='instacopy_post.jpg';
+    a.href=canvas.toDataURL('image/jpeg',0.95);
+    a.click();
+  };
+  img.src = selectedMatchSrc;
+}
+ 
+async function saveToHistory() {
+  if (!sb || !currentCaption) return;
+  await sb.from('history').insert({
+    caption: currentCaption,
+    post_url: document.getElementById('insta-url').value||'',
+    owner: currentAnalysis?.mood||'',
+    photo_url: selectedMatchSrc||''
+  });
+  setStatus('clone-status','Sauvegardé dans l\'historique','success');
+  setTimeout(()=>clearStatus('clone-status'),2000);
+}
+ 
+// ─── SPY ──────────────────────────────────────────────────────────────────────
+async function loadCompetitors() {
+  if (!sb) return;
+  const { data } = await sb.from('competitors').select('*').order('created_at');
+  competitors = data||[];
+  renderCompetitors();
+}
+ 
+async function loadSpyPosts() {
+  if (!sb) return;
+  const { data } = await sb.from('spy_posts').select('*').order('likes',{ascending:false});
+  spyPosts = data||[];
+  renderSpyPosts();
+}
+ 
+async function addCompetitor() {
+  if (!sb) { alert('Connecte Supabase d\'abord'); return; }
+  let raw = document.getElementById('new-handle').value.trim().replace('@','');
+  const m = raw.match(/instagram\.com\/([^/?]+)/);
+  const handle = m ? m[1] : raw;
+  if (!handle) return;
+  await sb.from('competitors').upsert({handle},{onConflict:'handle'});
+  document.getElementById('new-handle').value='';
+  await loadCompetitors();
+}
+ 
+function renderCompetitors() {
+  document.getElementById('comp-count').textContent = competitors.length;
+  const wrap = document.getElementById('scrape-all-wrap');
+  wrap.style.display = competitors.length ? 'flex' : 'none';
+  const list = document.getElementById('comp-list');
+  if (!competitors.length) { list.innerHTML='<div class="empty-state" style="padding:1rem">Aucun concurrent</div>'; return; }
+  list.innerHTML = competitors.map(c => {
+    const badge = c.status==='done'
+      ? `<span class="badge green">${c.post_count} posts</span>`
+      : c.status==='loading'
+      ? `<span class="badge blue"><div class="spinner" style="width:10px;height:10px;border-width:1.5px;display:inline-block;margin-right:4px"></div>En cours</span>`
+      : c.status==='error'
+      ? `<span class="badge red">Erreur</span>`
+      : `<span class="badge gray">Non scrappé</span>`;
+    return `<div class="comp-row">
+      <div class="avatar">${c.handle.substring(0,2).toUpperCase()}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:14px;font-weight:500">@${c.handle}</div>
+        <div style="font-size:11px;color:#aaa">${c.last_scraped ? 'Mis à jour '+new Date(c.last_scraped).toLocaleDateString('fr-FR') : 'Jamais scrappé'}</div>
+      </div>
+      ${badge}
+      <button class="btn" onclick="scrapeOne('${c.handle}')" style="font-size:12px;padding:5px 10px" ${c.status==='loading'?'disabled':''}>Scraper</button>
+      <button class="btn" onclick="removeCompetitor('${c.handle}')" style="font-size:12px;padding:5px 10px;color:#dc2626">✕</button>
+    </div>`;
+  }).join('');
+}
+ 
+async function removeCompetitor(handle) {
+  await sb.from('competitors').delete().eq('handle',handle);
+  await sb.from('spy_posts').delete().eq('owner',handle);
+  await loadCompetitors();
+  await loadSpyPosts();
+}
+ 
+async function scrapeOne(handle) {
+  const apifyKey = getKey('apify-key');
+  if (!apifyKey) { setStatus('spy-status','Entre ta clé Apify dans Config','error'); return; }
+ 
+  await sb.from('competitors').update({status:'loading'}).eq('handle',handle);
+  await loadCompetitors();
+  setStatus('spy-status',`Scraping @${handle}... (30-90 sec)`,'info');
+ 
+  try {
+    const limit = parseInt(document.getElementById('posts-limit')?.value||'30');
+    const runRes = await fetch('https://api.apify.com/v2/acts/apify~instagram-profile-scraper/runs', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${apifyKey}`},
+      body:JSON.stringify({usernames:[handle],resultsLimit:limit})
+    });
+    if (!runRes.ok) { const e=await runRes.json(); throw new Error(e.error?.message||'Apify error '+runRes.status); }
+    const run = await runRes.json();
+    const runId = run.data?.id;
+    if (!runId) throw new Error('Run ID manquant');
+    await pollApifyRun(runId, apifyKey, handle);
+  } catch(e) {
+    await sb.from('competitors').update({status:'error'}).eq('handle',handle);
+    await loadCompetitors();
+    setStatus('spy-status','Erreur: '+e.message,'error');
+  }
+}
+ 
+async function pollApifyRun(runId, key, handle) {
+  const start = Date.now();
+  while (Date.now()-start < 120000) {
+    await new Promise(r=>setTimeout(r,5000));
+    const r = await fetch(`https://api.apify.com/v2/actor-runs/${runId}`,{headers:{'Authorization':`Bearer ${key}`}});
+    const d = await r.json();
+    const st = d.data?.status;
+    if (st==='SUCCEEDED') { await fetchApifyResults(runId,key,handle); return; }
+    if (['FAILED','ABORTED','TIMED-OUT'].includes(st)) throw new Error('Run échoué: '+st);
+  }
+  throw new Error('Timeout — réessaie plus tard');
+}
+ 
+async function fetchApifyResults(runId, key, handle) {
+  const r = await fetch(`https://api.apify.com/v2/actor-runs/${runId}/dataset/items?token=${key}&limit=100`);
+  const items = await r.json();
+  const posts = [];
+ 
+  for (const item of (Array.isArray(items)?items:[items])) {
+    const rawPosts = item.latestPosts||item.posts||(item.shortCode?[item]:[]);
+    for (const p of rawPosts) {
+      const type = p.type==='Sidecar'?'carousel':p.type==='Video'?'reel':'image';
+      const slides = (p.images||p.sidecarImages||[]).map((s,i)=>({index:i,url:s.url||s.displayUrl||''}));
+      if (!slides.length && p.displayUrl) slides.push({index:0,url:p.displayUrl});
+      posts.push({
+        id: p.id||p.shortCode||Math.random().toString(36).slice(2),
+        owner: handle, type,
+        likes: p.likesCount||p.likes||0,
+        comments: p.commentsCount||p.comments||0,
+        views: p.videoViewCount||p.views||0,
+        caption: p.caption||'',
+        display_url: p.displayUrl||slides[0]?.url||'',
+        slides: JSON.stringify(slides),
+        url: `https://instagram.com/p/${p.shortCode||''}`
+      });
+    }
+  }
+ 
+  if (posts.length) {
+    await sb.from('spy_posts').delete().eq('owner',handle);
+    for (let i=0;i<posts.length;i+=20) {
+      await sb.from('spy_posts').upsert(posts.slice(i,i+20),{onConflict:'id'});
+    }
+  }
+ 
+  await sb.from('competitors').update({status:'done',post_count:posts.length,last_scraped:new Date().toISOString()}).eq('handle',handle);
+  await loadCompetitors();
+  await loadSpyPosts();
+  clearStatus('spy-status');
+  setStatus('spy-status',`${posts.length} posts récupérés pour @${handle}` ,'success');
+  setTimeout(()=>clearStatus('spy-status'),4000);
+}
+ 
+async function scrapeAll() {
+  for (const c of competitors) {
+    if (c.status!=='loading') { await scrapeOne(c.handle); await new Promise(r=>setTimeout(r,2000)); }
+  }
+}
+ 
+function setSpyFilter(f,el) {
+  spyFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderSpyPosts();
+}
+ 
+function renderSpyPosts() {
+  const container = document.getElementById('spy-posts-container');
+  const statsEl = document.getElementById('spy-stats');
+  const filtersEl = document.getElementById('spy-filters');
+ 
+  if (!spyPosts.length) {
+    container.innerHTML='<div class="empty-state">Lance un scraping depuis le panneau Concurrents.</div>';
+    statsEl.style.display='none'; filtersEl.style.display='none'; return;
+  }
+ 
+  statsEl.style.display='grid'; filtersEl.style.display='flex';
+  const handles=[...new Set(spyPosts.map(p=>p.owner))];
+  document.getElementById('s-posts').textContent=spyPosts.length;
+  document.getElementById('s-slides').textContent=spyPosts.reduce((s,p)=>{try{return s+(JSON.parse(p.slides||'[]')).length}catch{return s+1}},0);
+  document.getElementById('s-comps').textContent=handles.length;
+ 
+  const cf=document.getElementById('comp-filter');
+  const sel=cf.value;
+  cf.innerHTML='<option value="">Tous les comptes</option>'+handles.map(h=>`<option value="${h}" ${h===sel?'selected':''}">@${h}</option>`).join('');
+  if(sel) cf.value=sel;
+ 
+  let filtered=[...spyPosts];
+  if(cf.value) filtered=filtered.filter(p=>p.owner===cf.value);
+  if(spyFilter!=='all') filtered=filtered.filter(p=>p.type===spyFilter);
+  filtered.sort((a,b)=>(b.likes+b.comments*3)-(a.likes+a.comments*3));
+ 
+  container.innerHTML=`<div class="posts-grid">${filtered.map((p,i)=>`
+    <div class="post-card" onclick="openModal('${p.id}')">
+      <div class="post-thumb" style="${!p.display_url?'display:flex;align-items:center;justify-content:center;color:#ccc;font-size:12px':''}">
+        ${p.display_url?`<img src="${p.display_url}" loading="lazy" onerror="this.style.display='none'">` : 'Pas de preview'}
+        ${(()=>{try{const s=JSON.parse(p.slides||'[]');return s.length>1?`<span class="slides-badge">${s.length} slides</span>`:'';}catch{return ''}})()}
+        <span class="rank-num">${i+1}</span>
+      </div>
+      <div class="post-body">
+        <div class="post-stats">
+          <span>♥ ${(p.likes||0).toLocaleString('fr-FR')}</span>
+          <span>💬 ${(p.comments||0).toLocaleString('fr-FR')}</span>
+          ${p.views?`<span>▶ ${(p.views||0).toLocaleString('fr-FR')}</span>`:''}
+        </div>
+        <div class="post-caption">${p.caption||'(pas de légende)'}</div>
+        <div style="margin-top:6px"><span class="tag">@${p.owner}</span><span class="tag">${p.type}</span></div>
+      </div>
+    </div>`).join('')}</div>`;
+}
+ 
+function openModal(id) {
+  const post = spyPosts.find(p=>p.id===id);
+  if(!post) return;
+  let slides=[];
+  try{slides=JSON.parse(post.slides||'[]');}catch{}
+  if(!slides.length && post.display_url) slides=[{index:0,url:post.display_url}];
+ 
+  document.getElementById('modal-title').textContent=`@${post.owner} — ${slides.length} slide(s) — ♥ ${(post.likes||0).toLocaleString('fr-FR')}`;
+  document.getElementById('modal-strip').innerHTML=slides.map((s,i)=>`
+    <div class="slide-mini">
+      ${s.url?`<img src="${s.url}" loading="lazy" onerror="this.style.display='none'">`:''}<span class="snum">${i+1}</span>
+    </div>`).join('');
+  document.getElementById('modal-caption').textContent=post.caption||'(pas de légende)';
+  document.getElementById('modal-actions').innerHTML=`
+    <button class="btn" onclick="copyTxt('${(post.caption||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')">Copier légende</button>
+    ${post.url?`<a href="${post.url}" target="_blank" class="btn">Voir sur Instagram</a>`:''}
+    <button class="btn primary" onclick="cloneThisPost('${id}')">Cloner ce post →</button>`;
+  document.getElementById('slide-modal').style.display='block';
+}
+ 
+function closeModal() { document.getElementById('slide-modal').style.display='none'; }
+ 
+function copyTxt(t) { navigator.clipboard.writeText(t); setStatus('spy-status','Légende copiée !','success'); setTimeout(()=>clearStatus('spy-status'),2000); }
+ 
+function cloneThisPost(id) {
+  const post=spyPosts.find(p=>p.id===id);
+  closeModal();
+  if(post) {
+    switchTab('clone',document.querySelectorAll('.tab')[2]);
+    document.getElementById('insta-url').value=post.url||'';
+    currentPostImg=null;
+    document.getElementById('paste-area').innerHTML=`<div style="font-size:20px">📷</div><span>Ou colle / glisse un screenshot</span><input type="file" id="post-img-input" accept="image/*" onchange="handlePostImg(event)">`;
+    if(post.display_url){
+      const pa=document.getElementById('paste-area');
+      pa.innerHTML=`<img src="${post.display_url}" style="max-height:180px;border-radius:6px"><input type="file" id="post-img-input" accept="image/*" onchange="handlePostImg(event)" style="display:none">`;
+    }
+  }
+}
+ 
+// ─── HISTORY ──────────────────────────────────────────────────────────────────
+async function loadHistory() {
+  if (!sb) return;
+  const { data } = await sb.from('history').select('*').order('created_at',{ascending:false}).limit(50);
+  history = data||[];
+  renderHistory();
+}
+ 
+function renderHistory() {
+  const list=document.getElementById('hist-list');
+  const empty=document.getElementById('hist-empty');
+  if(!history.length){list.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  list.innerHTML=history.map(h=>`
+    <div class="hist-card">
+      ${h.photo_url?`<img src="${h.photo_url}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;flex-shrink:0" onerror="this.style.display='none'">` :''}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:11px;color:#aaa;margin-bottom:4px">${new Date(h.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
+        <div style="font-size:13px;line-height:1.5">${(h.caption||'').substring(0,150)}${(h.caption||'').length>150?'...':''}</div>
+      </div>
+      <button class="btn" onclick="navigator.clipboard.writeText('${(h.caption||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')" style="font-size:12px;padding:5px 10px;flex-shrink:0">Copier</button>
+    </div>`).join('');
+}
+ 
+// ─── AUTO INIT ────────────────────────────────────────────────────────────────
+window.addEventListener('paste', e => {
+  const item=Array.from(e.clipboardData.items).find(i=>i.type.startsWith('image/'));
+  if(item) handlePostImgFile(item.getAsFile());
+});
+ 
+// Auto-connect from localStorage
+const savedUrl=localStorage.getItem('sb_url');
+const savedKey=localStorage.getItem('sb_key');
+if(savedUrl && savedKey) {
+  document.getElementById('sb-url').value=savedUrl;
+  document.getElementById('sb-key').value=savedKey;
+  initSupabase();
+}
+</script>
+</body>
+</html>
