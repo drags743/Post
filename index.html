@@ -125,7 +125,7 @@ input[type=file]{display:none}
     </div>
     <div style="margin-left:auto"><span id="sync-status" style="font-size:12px;color:#aaa"></span></div>
   </div>
- 
+
   <div class="tabs">
     <button class="tab active" onclick="switchTab('config',this)">⚙️ Config</button>
     <button class="tab" onclick="switchTab('library',this)">📚 Bibliothèque</button>
@@ -133,7 +133,7 @@ input[type=file]{display:none}
     <button class="tab" onclick="switchTab('spy',this)">🔍 Spy</button>
     <button class="tab" onclick="switchTab('history',this)">🕐 Historique</button>
   </div>
- 
+
   <!-- CONFIG -->
   <div id="panel-config" class="panel active">
     <div class="config-section"><p><strong>Configuration requise une seule fois.</strong> Tes clés sont stockées dans Supabase et synchronisées sur tous tes appareils.</p></div>
@@ -157,7 +157,7 @@ input[type=file]{display:none}
     </div>
     <div class="card" id="status-card" style="display:none"><div class="card-title">Statut</div><div id="config-status-list"></div></div>
   </div>
- 
+
   <!-- LIBRARY -->
   <div id="panel-library" class="panel">
     <div id="lib-status"></div>
@@ -178,7 +178,7 @@ input[type=file]{display:none}
     <div id="photo-grid" class="photo-grid"></div>
     <div id="lib-empty" class="empty-state" style="display:none"><div style="font-size:32px">📂</div><p style="margin-top:8px">Ta bibliothèque est vide</p></div>
   </div>
- 
+
   <!-- CLONE -->
   <div id="panel-clone" class="panel">
     <div id="clone-status"></div>
@@ -222,7 +222,7 @@ input[type=file]{display:none}
       </div>
     </div>
   </div>
- 
+
   <!-- SPY -->
   <div id="panel-spy" class="panel">
     <div id="spy-status"></div>
@@ -231,7 +231,7 @@ input[type=file]{display:none}
       <div class="stat-box"><div class="lbl">Slides stockées</div><div class="val" id="s-slides">0</div></div>
       <div class="stat-box"><div class="lbl">Concurrents</div><div class="val" id="s-comps">0</div></div>
     </div>
- 
+
     <div class="card">
       <div class="card-title">Importer un export Apify (JSON)</div>
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
@@ -240,7 +240,7 @@ input[type=file]{display:none}
         <span style="font-size:12px;color:#888">Export depuis Apify → All fields → JSON</span>
       </div>
     </div>
- 
+
     <div class="card">
       <div class="card-title">Analyser les photos récurrentes</div>
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px">
@@ -249,7 +249,7 @@ input[type=file]{display:none}
       </div>
       <div id="recurring-results"></div>
     </div>
- 
+
     <div class="card">
       <div class="card-title">Ajouter un concurrent</div>
       <div class="row">
@@ -257,7 +257,7 @@ input[type=file]{display:none}
         <button class="btn primary" onclick="addCompetitor()">Ajouter</button>
       </div>
     </div>
- 
+
     <div class="card">
       <div class="card-title">Mes concurrents (<span id="comp-count">0</span>)</div>
       <div id="comp-list"><div class="empty-state" style="padding:1rem">Aucun concurrent</div></div>
@@ -266,7 +266,7 @@ input[type=file]{display:none}
         <span style="font-size:12px;color:#888">1 run Apify par concurrent</span>
       </div>
     </div>
- 
+
     <div class="filter-bar" id="spy-filters" style="display:none">
       <button class="filter-btn active" onclick="setSpyFilter('all',this)">Tous</button>
       <button class="filter-btn" onclick="setSpyFilter('carousel',this)">Carrousels</button>
@@ -274,7 +274,7 @@ input[type=file]{display:none}
       <select class="input" id="comp-filter" style="width:auto;padding:5px 10px;font-size:13px;margin-left:auto" onchange="renderSpyPosts()"></select>
     </div>
     <div id="spy-posts-container"></div>
- 
+
     <div id="slide-modal" class="modal-wrap">
       <div class="modal">
         <div class="modal-header">
@@ -287,17 +287,17 @@ input[type=file]{display:none}
       </div>
     </div>
   </div>
- 
+
   <!-- HISTORY -->
   <div id="panel-history" class="panel">
     <div id="hist-list"></div>
     <div id="hist-empty" class="empty-state" style="display:none"><div style="font-size:32px">🕐</div><p style="margin-top:8px">Aucun post généré pour l'instant</p></div>
   </div>
 </div>
- 
+
 <script>
 let sb=null,photos=[],competitors=[],spyPosts=[],history=[],currentAnalysis=null,currentCaption='',currentPostImg=null,selectedMatchSrc='',spyFilter='all';
- 
+
 async function initSupabase(){
   const url=document.getElementById('sb-url').value.trim(),key=document.getElementById('sb-key').value.trim();
   if(!url||!key){setStatus('sb-status','Entre l\'URL et la clé Supabase','error');return;}
@@ -312,7 +312,7 @@ async function initSupabase(){
     await loadAllData();updateSyncStatus('Connecté');
   }catch(e){setStatus('sb-status','Erreur: '+e.message,'error');}
 }
- 
+
 function showSQLInstructions(){
   document.getElementById('config-status-list').innerHTML=`<div class="status warning"><div><strong>Crée les tables dans Supabase → SQL Editor :</strong><pre style="background:#1a1a1a;color:#fff;padding:12px;border-radius:8px;font-size:11px;margin-top:8px;overflow-x:auto;white-space:pre-wrap">create table if not exists settings (key text primary key, value text);
 create table if not exists photos (id uuid default gen_random_uuid() primary key, name text, url text, created_at timestamptz default now());
@@ -321,9 +321,9 @@ create table if not exists spy_posts (id text primary key, owner text, type text
 create table if not exists history (id uuid default gen_random_uuid() primary key, caption text, post_url text, owner text, photo_url text, created_at timestamptz default now());
 insert into storage.buckets (id, name, public) values ('photos', 'photos', true) on conflict do nothing;</pre><button class="btn primary" style="margin-top:8px;font-size:12px" onclick="initSupabase()">Reconnecter</button></div></div>`;
 }
- 
+
 async function loadAllData(){await Promise.all([loadPhotos(),loadCompetitors(),loadSpyPosts(),loadHistory(),loadSettings()]);renderConfigStatus();}
- 
+
 async function loadSettings(){
   if(!sb)return;const{data}=await sb.from('settings').select('*');if(!data)return;
   const map={};data.forEach(r=>map[r.key]=r.value);
@@ -331,7 +331,7 @@ async function loadSettings(){
   if(map.apify_key){document.getElementById('apify-key').value=map.apify_key;document.getElementById('apify-saved').style.display='block';}
   if(map.posts_limit)document.getElementById('posts-limit').value=map.posts_limit;
 }
- 
+
 async function saveKeys(){
   if(!sb){alert('Connecte Supabase d\'abord');return;}
   const antKey=document.getElementById('anthropic-key').value.trim(),apifyKey=document.getElementById('apify-key').value.trim(),limit=document.getElementById('posts-limit').value;
@@ -344,27 +344,27 @@ async function saveKeys(){
   document.getElementById('apify-saved').style.display=apifyKey?'block':'none';
   renderConfigStatus();
 }
- 
+
 function getKey(id){return document.getElementById(id).value.trim();}
- 
+
 function renderConfigStatus(){
   const antOk=!!getKey('anthropic-key'),apifyOk=!!getKey('apify-key'),sbOk=!!sb;
   document.getElementById('config-status-list').innerHTML=`<div style="display:flex;flex-direction:column;gap:8px;font-size:13px"><div>${sbOk?'✅':'❌'} Supabase ${sbOk?'connecté':'non connecté'}</div><div>${antOk?'✅':'❌'} Clé Anthropic ${antOk?'présente':'manquante'}</div><div>${apifyOk?'✅':'❌'} Clé Apify ${apifyOk?'présente':'manquante'}</div><div>${photos.length>0?'✅':'⚪'} ${photos.length} photo(s) dans la bibliothèque</div></div>`;
 }
- 
+
 function switchTab(id,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   el.classList.add('active');document.getElementById('panel-'+id).classList.add('active');
   if(id==='library')renderLibrary();if(id==='spy')renderSpyPosts();if(id==='history')renderHistory();
 }
- 
+
 function setStatus(elId,msg,type){const icons={info:'<div class="spinner"></div>',success:'✓',error:'✗',warning:'!'};document.getElementById(elId).innerHTML=`<div class="status ${type}">${icons[type]} ${msg}</div>`;}
 function clearStatus(elId){document.getElementById(elId).innerHTML='';}
 function updateSyncStatus(msg){document.getElementById('sync-status').textContent=msg;}
- 
+
 async function loadPhotos(){if(!sb)return;const{data}=await sb.from('photos').select('*').order('created_at',{ascending:false});photos=data||[];renderLibrary();}
- 
+
 function renderLibrary(){
   const grid=document.getElementById('photo-grid'),empty=document.getElementById('lib-empty');
   document.getElementById('photo-count').textContent=photos.length+' photo(s)';
@@ -372,7 +372,7 @@ function renderLibrary(){
   empty.style.display='none';
   grid.innerHTML=photos.map(p=>`<div class="photo-card"><img src="${p.url}" alt="${p.name}" loading="lazy"><div class="overlay"><button class="del-btn" onclick="deletePhoto('${p.id}','${p.name}',event)">✕</button></div></div>`).join('');
 }
- 
+
 async function uploadPhotos(e){
   if(!sb){alert('Connecte Supabase d\'abord');return;}
   const files=Array.from(e.target.files);if(!files.length)return;
@@ -387,17 +387,17 @@ async function uploadPhotos(e){
   document.getElementById('upload-progress').style.display='none';e.target.value='';
   await loadPhotos();setStatus('lib-status',`${done} photo(s) uploadée(s) !`,'success');setTimeout(()=>clearStatus('lib-status'),3000);
 }
- 
+
 async function deletePhoto(id,name,e){
   e.stopPropagation();if(!confirm('Supprimer?'))return;
   await sb.storage.from('photos').remove([name]);await sb.from('photos').delete().eq('id',id);await loadPhotos();
 }
- 
+
 const dz=document.getElementById('drop-zone');
 dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('over');});
 dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
 dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('over');if(e.dataTransfer.files.length)uploadPhotos({target:{files:e.dataTransfer.files,value:''}});});
- 
+
 async function callClaude(messages,system=''){
   const key=getKey('anthropic-key');if(!key)throw new Error('Clé Anthropic manquante — va dans Config');
   const body={model:'claude-sonnet-4-20250514',max_tokens:1000,messages};if(system)body.system=system;
@@ -405,11 +405,11 @@ async function callClaude(messages,system=''){
   const d=await r.json();if(d.error)throw new Error(d.error.message);
   return d.content.map(c=>c.text||'').join('');
 }
- 
+
 function onImgDrop(e){e.preventDefault();const file=e.dataTransfer.files[0];if(file&&file.type.startsWith('image/'))handlePostImgFile(file);}
 function handlePostImg(e){if(e.target.files[0])handlePostImgFile(e.target.files[0]);}
 function handlePostImgFile(file){const reader=new FileReader();reader.onload=ev=>{currentPostImg=ev.target.result;document.getElementById('paste-area').innerHTML=`<img src="${currentPostImg}" style="max-height:180px;border-radius:6px">`;};reader.readAsDataURL(file);}
- 
+
 async function analyzePost(){
   const url=document.getElementById('insta-url').value.trim();
   if(!url&&!currentPostImg){setStatus('clone-status','Colle une URL ou un screenshot','error');return;}
@@ -433,7 +433,7 @@ async function analyzePost(){
     clearStatus('clone-status');setStatus('clone-status','Post analysé ! Sélectionne une photo.','success');setTimeout(()=>clearStatus('clone-status'),3000);
   }catch(e){setStatus('clone-status','Erreur: '+e.message,'error');}
 }
- 
+
 async function findMatches(){
   const sample=photos.slice(0,12);if(!sample.length)return;
   const sys=`Expert photo Instagram. Réponds UNIQUEMENT en JSON: {"ranked":[{"index":0,"score":95,"reason":"raison"},{"index":1,"score":80,"reason":"..."},{"index":2,"score":70,"reason":"..."}]}`;
@@ -443,7 +443,7 @@ async function findMatches(){
   try{const msgs=[{role:'user',content:[...photoMsgs,{type:'text',text:`Classe les 3 meilleures parmi ces ${photoMsgs.length} photos pour ce style: "${currentAnalysis?.style}". Ambiance: "${currentAnalysis?.mood}". Retourne exactement 3 résultats.`}]}];const raw=await callClaude(msgs,sys);renderMatches(JSON.parse(raw.replace(/```json|```/g,'').trim()).ranked||[],sample);}
   catch(e){renderFallbackMatches(sample);}
 }
- 
+
 function blobToB64(blob){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob);});}
 function renderMatches(ranked,sample){document.getElementById('matches-card').style.display='block';document.getElementById('matches-grid').innerHTML=ranked.slice(0,3).map(r=>{const p=sample[r.index];if(!p)return'';return`<div class="match-card" onclick="selectMatch(this,'${p.url}')"><img src="${p.url}" loading="lazy"><span class="score-badge">${r.score}%</span></div>`;}).join('');}
 function renderFallbackMatches(sample){document.getElementById('matches-card').style.display='block';document.getElementById('matches-grid').innerHTML=sample.slice(0,3).map(p=>`<div class="match-card" onclick="selectMatch(this,'${p.url}')"><img src="${p.url}" loading="lazy"></div>`).join('');}
@@ -455,10 +455,10 @@ function saveCaptionEdit(){currentCaption=document.getElementById('cap-ta').valu
 function cancelCaptionEdit(){document.getElementById('caption-area').innerHTML=`<div class="caption-box">${currentCaption}</div>`;document.getElementById('caption-actions').innerHTML=`<button class="btn" onclick="copyCaption()">Copier</button><button class="btn" onclick="regenCaption()">Regénérer</button><button class="btn" onclick="editCaption()">Modifier</button>`;}
 function downloadPost(){if(!selectedMatchSrc)return;const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1080;const ctx=canvas.getContext('2d'),img=new Image();img.crossOrigin='anonymous';img.onload=()=>{const s=Math.max(1080/img.width,1080/img.height),w=img.width*s,h=img.height*s;ctx.drawImage(img,(1080-w)/2,(1080-h)/2,w,h);const a=document.createElement('a');a.download='instacopy_post.jpg';a.href=canvas.toDataURL('image/jpeg',0.95);a.click();};img.src=selectedMatchSrc;}
 async function saveToHistory(){if(!sb||!currentCaption)return;await sb.from('history').insert({caption:currentCaption,post_url:document.getElementById('insta-url').value||'',owner:currentAnalysis?.mood||'',photo_url:selectedMatchSrc||''});setStatus('clone-status','Sauvegardé !','success');setTimeout(()=>clearStatus('clone-status'),2000);}
- 
+
 async function loadCompetitors(){if(!sb)return;const{data}=await sb.from('competitors').select('*').order('created_at');competitors=data||[];renderCompetitors();}
 async function loadSpyPosts(){if(!sb)return;const{data}=await sb.from('spy_posts').select('*').order('likes',{ascending:false});spyPosts=data||[];renderSpyPosts();}
- 
+
 async function addCompetitor(){
   if(!sb){alert('Connecte Supabase d\'abord');return;}
   let raw=document.getElementById('new-handle').value.trim().replace('@','');
@@ -466,7 +466,7 @@ async function addCompetitor(){
   await sb.from('competitors').upsert({handle},{onConflict:'handle'});
   document.getElementById('new-handle').value='';await loadCompetitors();
 }
- 
+
 function renderCompetitors(){
   document.getElementById('comp-count').textContent=competitors.length;
   document.getElementById('scrape-all-wrap').style.display=competitors.length?'flex':'none';
@@ -474,9 +474,9 @@ function renderCompetitors(){
   if(!competitors.length){list.innerHTML='<div class="empty-state" style="padding:1rem">Aucun concurrent</div>';return;}
   list.innerHTML=competitors.map(c=>{const badge=c.status==='done'?`<span class="badge green">${c.post_count} posts</span>`:c.status==='loading'?`<span class="badge blue"><div class="spinner" style="width:10px;height:10px;border-width:1.5px;display:inline-block;margin-right:4px"></div>En cours</span>`:c.status==='error'?`<span class="badge red">Erreur</span>`:`<span class="badge gray">Non scrappé</span>`;return`<div class="comp-row"><div class="avatar">${c.handle.substring(0,2).toUpperCase()}</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">@${c.handle}</div><div style="font-size:11px;color:#aaa">${c.last_scraped?'Mis à jour '+new Date(c.last_scraped).toLocaleDateString('fr-FR'):'Jamais scrappé'}</div></div>${badge}<button class="btn" onclick="scrapeOne('${c.handle}')" style="font-size:12px;padding:5px 10px" ${c.status==='loading'?'disabled':''}>Scraper</button><button class="btn" onclick="removeCompetitor('${c.handle}')" style="font-size:12px;padding:5px 10px;color:#dc2626">✕</button></div>`;}).join('');
 }
- 
+
 async function removeCompetitor(handle){await sb.from('competitors').delete().eq('handle',handle);await sb.from('spy_posts').delete().eq('owner',handle);await loadCompetitors();await loadSpyPosts();}
- 
+
 async function scrapeOne(handle){
   const apifyKey=getKey('apify-key');if(!apifyKey){setStatus('spy-status','Entre ta clé Apify dans Config','error');return;}
   await sb.from('competitors').update({status:'loading'}).eq('handle',handle);await loadCompetitors();
@@ -488,7 +488,7 @@ async function scrapeOne(handle){
     await pollApifyRun(runId,apifyKey,handle);
   }catch(e){await sb.from('competitors').update({status:'error'}).eq('handle',handle);await loadCompetitors();setStatus('spy-status','Erreur: '+e.message,'error');}
 }
- 
+
 async function pollApifyRun(runId,key,handle){
   const start=Date.now();
   while(Date.now()-start<120000){
@@ -500,7 +500,7 @@ async function pollApifyRun(runId,key,handle){
   }
   throw new Error('Timeout');
 }
- 
+
 async function fetchApifyResults(runId,key,handle){
   const r=await fetch(`https://api.apify.com/v2/actor-runs/${runId}/dataset/items?token=${key}&limit=100`);
   const items=await r.json();const posts=[];
@@ -518,9 +518,9 @@ async function fetchApifyResults(runId,key,handle){
   await loadCompetitors();await loadSpyPosts();clearStatus('spy-status');
   setStatus('spy-status',`${posts.length} posts récupérés pour @${handle}`,'success');setTimeout(()=>clearStatus('spy-status'),4000);
 }
- 
+
 async function scrapeAll(){for(const c of competitors){if(c.status!=='loading'){await scrapeOne(c.handle);await new Promise(r=>setTimeout(r,2000));}}}
- 
+
 async function importApifyJSON(e){
   const file=e.target.files[0];if(!file||!sb)return;
   setStatus('spy-status','Import en cours...','info');
@@ -536,7 +536,7 @@ async function importApifyJSON(e){
   await loadCompetitors();await loadSpyPosts();
   setStatus('spy-status',`${posts.length} posts importés avec toutes les slides !`,'success');setTimeout(()=>clearStatus('spy-status'),3000);e.target.value='';
 }
- 
+
 async function analyzeRecurringPhotos(){
   if(!spyPosts.length){setStatus('spy-status','Importe des posts d\'abord','error');return;}
   const resultsEl=document.getElementById('recurring-results');
@@ -582,11 +582,11 @@ async function analyzeRecurringPhotos(){
       </div>`).join('')}
     </div>`;
 }
- 
+
 function normalizeDesc(desc){return desc.toLowerCase().replace(/[àâä]/g,'a').replace(/[éèêë]/g,'e').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u').replace(/[^a-z0-9\s]/g,'').trim().split(' ').sort().join(' ');}
- 
+
 function setSpyFilter(f,el){spyFilter=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderSpyPosts();}
- 
+
 function renderSpyPosts(){
   const container=document.getElementById('spy-posts-container'),statsEl=document.getElementById('spy-stats'),filtersEl=document.getElementById('spy-filters');
   if(!spyPosts.length){container.innerHTML='<div class="empty-state">Importe un JSON ou lance un scraping.</div>';statsEl.style.display='none';filtersEl.style.display='none';return;}
@@ -616,7 +616,7 @@ function renderSpyPosts(){
       </div>
     </div>`).join('')}</div>`;
 }
- 
+
 function openModal(id){
   const post=spyPosts.find(p=>p.id===id);if(!post)return;
   let slides=[];try{slides=JSON.parse(post.slides||'[]');}catch{}
@@ -639,7 +639,7 @@ function cloneThisPost(id){
     else pa.innerHTML=`<div style="font-size:20px">📷</div><span>Ou colle / glisse un screenshot</span><input type="file" id="post-img-input" accept="image/*" onchange="handlePostImg(event)">`;
   }
 }
- 
+
 async function loadHistory(){if(!sb)return;const{data}=await sb.from('history').select('*').order('created_at',{ascending:false}).limit(50);history=data||[];renderHistory();}
 function renderHistory(){
   const list=document.getElementById('hist-list'),empty=document.getElementById('hist-empty');
@@ -647,11 +647,10 @@ function renderHistory(){
   empty.style.display='none';
   list.innerHTML=history.map(h=>`<div class="hist-card">${h.photo_url?`<img src="${h.photo_url}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;flex-shrink:0" onerror="this.style.display='none'">`:''}<div style="flex:1;min-width:0"><div style="font-size:11px;color:#aaa;margin-bottom:4px">${new Date(h.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div><div style="font-size:13px;line-height:1.5">${(h.caption||'').substring(0,150)}${(h.caption||'').length>150?'...':''}</div></div><button class="btn" onclick="navigator.clipboard.writeText('${(h.caption||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')" style="font-size:12px;padding:5px 10px;flex-shrink:0">Copier</button></div>`).join('');
 }
- 
+
 window.addEventListener('paste',e=>{const item=Array.from(e.clipboardData.items).find(i=>i.type.startsWith('image/'));if(item)handlePostImgFile(item.getAsFile());});
 const savedUrl=localStorage.getItem('sb_url'),savedKey=localStorage.getItem('sb_key');
 if(savedUrl&&savedKey){document.getElementById('sb-url').value=savedUrl;document.getElementById('sb-key').value=savedKey;initSupabase();}
 </script>
 </body>
 </html>
- 
