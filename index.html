@@ -989,7 +989,48 @@ function renderHistory() {
       <button class="btn" onclick="navigator.clipboard.writeText('${(h.caption||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')" style="font-size:12px;padding:5px 10px;flex-shrink:0">Copier</button>
     </div>`).join('');
 }
- 
+ // ─── IMPORT APIFY JSON ───────────────────────────────────────────────────────
+async function importApifyJSON(e) {
+  const file = e.target.files[0];
+  if (!file || !sb) return;
+  setStatus('spy-status','Import en cours...','info');
+  const text = await file.text();
+  const data = JSON.parse(text);
+  const handle = data[0]?.user?.username || data[0]?.owner?.username || 'inconnu';
+  const posts = data
+    .filter(p => p.type !== 'Video' && p.type !== 'video')
+    .map(p => {
+      const slides = (p.carousel_media || []).map((s, i) => {
+        const url = s.image_versions2?.candidates?.[0]?.url || s.display_uri || '';
+        return { index: i, url };
+      });
+      if (!slides.length && p.image) slides.push({ index: 0, url: p.image });
+      return {
+        id: p.pk || p.shortcode || Math.random().toString(36).slice(2),
+        owner: handle,
+        type: slides.length > 1 ? 'carousel' : 'image',
+        likes: p.like_count || 0,
+        comments: p.comment_count || 0,
+        views: p.view_count || 0,
+        caption: p.caption || '',
+        display_url: slides[0]?.url || p.image || '',
+        slides: JSON.stringify(slides),
+        url: p.post_url || ''
+      };
+    });
+  for (let i = 0; i < posts.length; i += 20) {
+    await sb.from('spy_posts').upsert(posts.slice(i, i+20), { onConflict: 'id' });
+  }
+  await sb.from('competitors').upsert(
+    { handle, status: 'done', post_count: posts.length, last_scraped: new Date().toISOString() },
+    { onConflict: 'handle' }
+  );
+  await loadCompetitors();
+  await loadSpyPosts();
+  setStatus('spy-status', `${posts.length} posts importés avec toutes les slides !`, 'success');
+  setTimeout(() => clearStatus('spy-status'), 3000);
+  e.target.value = '';
+}
 // ─── AUTO INIT ────────────────────────────────────────────────────────────────
 window.addEventListener('paste', e => {
   const item=Array.from(e.clipboardData.items).find(i=>i.type.startsWith('image/'));
