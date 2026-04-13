@@ -23,7 +23,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn:hover{background:#f5f5f2}
 .btn.primary{background:#1a1a1a;color:white;border-color:#1a1a1a}
 .btn.primary:hover{background:#333}
-.btn.success{background:#16a34a;color:white;border-color:#16a34a}
 .btn:disabled{opacity:0.5;cursor:not-allowed}
 .input{width:100%;padding:9px 12px;border:1px solid rgba(0,0,0,0.15);border-radius:8px;font-size:14px;background:white;color:#1a1a1a;outline:none;font-family:inherit}
 .input:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,0.1)}
@@ -35,23 +34,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .status.warning{background:#fffbeb;color:#d97706}
 .spinner{width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
- 
-/* Config panel */
 .config-section{background:#fffbeb;border:1px solid rgba(217,119,6,0.2);border-radius:10px;padding:1rem;margin-bottom:1rem}
 .config-section p{font-size:13px;color:#92400e;line-height:1.6}
-.config-section a{color:#b45309;font-weight:500}
 .config-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:600px){.config-grid{grid-template-columns:1fr}}
 .label{font-size:12px;color:#666;margin-bottom:4px;display:block}
 .key-saved{font-size:12px;color:#16a34a;margin-top:4px}
- 
-/* Library */
 .lib-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
 .photo-count{font-size:13px;color:#888;margin-left:auto}
 .drop-zone{border:2px dashed rgba(0,0,0,0.12);border-radius:12px;padding:2rem;text-align:center;cursor:pointer;transition:all 0.15s;margin-bottom:1rem;color:#888;font-size:14px}
 .drop-zone:hover,.drop-zone.over{background:#eff6ff;border-color:#3b82f6;color:#1d4ed8}
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
-.photo-card{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);cursor:pointer}
+.photo-card{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,0.06)}
 .photo-card img{width:100%;height:100%;object-fit:cover}
 .photo-card .overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:0.15s;display:flex;align-items:center;justify-content:center}
 .photo-card:hover .overlay{background:rgba(0,0,0,0.3)}
@@ -59,8 +53,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .photo-card:hover .del-btn{opacity:1}
 .empty-state{text-align:center;padding:3rem;color:#aaa;font-size:14px}
 input[type=file]{display:none}
- 
-/* Clone */
 .clone-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
 @media(max-width:700px){.clone-grid{grid-template-columns:1fr}}
 .paste-area{border:2px dashed rgba(0,0,0,0.1);border-radius:8px;padding:1rem;min-height:90px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#aaa;font-size:13px;margin-top:10px;transition:0.15s}
@@ -78,8 +70,6 @@ input[type=file]{display:none}
 .result-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.6));padding:12px;color:white;font-size:11px;line-height:1.4}
 .actions-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .tag{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:11px;background:#f0f0ec;color:#666;margin:2px}
- 
-/* Spy */
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
 .stat-box{background:#f5f5f2;border-radius:8px;padding:10px 12px}
 .stat-box .val{font-size:22px;font-weight:600;margin-top:2px}
@@ -107,18 +97,22 @@ input[type=file]{display:none}
 .filter-btn.active{background:#1a1a1a;color:white;border-color:#1a1a1a}
 .progress-bar{height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden;margin:6px 0}
 .progress-fill{height:100%;background:#1a1a1a;border-radius:2px;transition:width 0.4s}
- 
-/* Modal */
 .modal-wrap{display:none;background:rgba(0,0,0,0.5);border-radius:12px;padding:1.5rem;min-height:300px}
 .modal{background:white;border-radius:12px;padding:1.5rem;max-width:640px;margin:0 auto}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
 .slides-strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:1rem}
-.slide-mini{width:72px;height:72px;border-radius:6px;background:#f0f0ec;flex-shrink:0;overflow:hidden;border:1px solid rgba(0,0,0,0.08);position:relative;cursor:pointer}
+.slide-mini{width:72px;height:72px;border-radius:6px;background:#f0f0ec;flex-shrink:0;overflow:hidden;border:1px solid rgba(0,0,0,0.08);position:relative}
 .slide-mini img{width:100%;height:100%;object-fit:cover}
 .slide-mini .snum{position:absolute;bottom:2px;right:3px;font-size:9px;color:white;background:rgba(0,0,0,0.5);border-radius:3px;padding:1px 3px}
- 
-/* History */
 .hist-card{background:white;border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:1rem;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.recurring-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:1rem}
+.recurring-card{background:white;border:1px solid rgba(0,0,0,0.08);border-radius:10px;overflow:hidden}
+.recurring-thumb{position:relative;aspect-ratio:1;background:#f0f0ec;overflow:hidden}
+.recurring-thumb img{width:100%;height:100%;object-fit:cover}
+.recurring-count{position:absolute;top:6px;left:6px;background:#1a1a1a;color:white;border-radius:20px;font-size:11px;font-weight:600;padding:3px 8px}
+.recurring-previews{position:absolute;bottom:6px;right:6px;display:flex;gap:3px}
+.recurring-previews img{width:26px;height:26px;border-radius:4px;object-fit:cover;border:1px solid white}
+.recurring-body{padding:10px}
 </style>
 </head>
 <body>
@@ -129,9 +123,7 @@ input[type=file]{display:none}
       <h1>InstaCopy FR</h1>
       <p>Clone à ta sauce — tes photos, ta langue</p>
     </div>
-    <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
-      <span id="sync-status" style="font-size:12px;color:#aaa"></span>
-    </div>
+    <div style="margin-left:auto"><span id="sync-status" style="font-size:12px;color:#aaa"></span></div>
   </div>
  
   <div class="tabs">
@@ -144,51 +136,26 @@ input[type=file]{display:none}
  
   <!-- CONFIG -->
   <div id="panel-config" class="panel active">
-    <div class="config-section">
-      <p><strong>Configuration requise une seule fois.</strong> Tes clés sont stockées dans Supabase et synchronisées sur tous tes appareils.</p>
-    </div>
- 
+    <div class="config-section"><p><strong>Configuration requise une seule fois.</strong> Tes clés sont stockées dans Supabase et synchronisées sur tous tes appareils.</p></div>
     <div class="card">
       <div class="card-title">Connexion Supabase</div>
       <div class="config-grid">
-        <div>
-          <label class="label">Project URL</label>
-          <input class="input" id="sb-url" placeholder="https://xxxx.supabase.co" type="text">
-        </div>
-        <div>
-          <label class="label">Anon Key (eyJ...)</label>
-          <input class="input" id="sb-key" placeholder="eyJhbGciOiJIUzI1NiIs..." type="password">
-        </div>
+        <div><label class="label">Project URL</label><input class="input" id="sb-url" placeholder="https://xxxx.supabase.co" type="text"></div>
+        <div><label class="label">Anon Key (eyJ...)</label><input class="input" id="sb-key" placeholder="eyJhbGciOiJIUzI1NiIs..." type="password"></div>
       </div>
       <button class="btn primary" style="margin-top:12px" onclick="initSupabase()">Connecter Supabase</button>
       <div id="sb-status" style="font-size:12px;margin-top:6px"></div>
     </div>
- 
     <div class="card" id="keys-card" style="display:none">
       <div class="card-title">Clés API</div>
       <div class="config-grid">
-        <div>
-          <label class="label">Clé Anthropic (Claude)</label>
-          <input class="input" id="anthropic-key" placeholder="sk-ant-..." type="password">
-          <div class="key-saved" id="ant-saved" style="display:none">✓ Sauvegardée</div>
-        </div>
-        <div>
-          <label class="label">Clé Apify</label>
-          <input class="input" id="apify-key" placeholder="apify_api_..." type="password">
-          <div class="key-saved" id="apify-saved" style="display:none">✓ Sauvegardée</div>
-        </div>
+        <div><label class="label">Clé Anthropic (Claude)</label><input class="input" id="anthropic-key" placeholder="sk-ant-..." type="password"><div class="key-saved" id="ant-saved" style="display:none">✓ Sauvegardée</div></div>
+        <div><label class="label">Clé Apify</label><input class="input" id="apify-key" placeholder="apify_api_..." type="password"><div class="key-saved" id="apify-saved" style="display:none">✓ Sauvegardée</div></div>
       </div>
-      <div style="margin-top:12px">
-        <label class="label">Nb de posts à scraper par concurrent</label>
-        <input class="input" id="posts-limit" type="number" value="30" min="5" max="100" style="width:120px">
-      </div>
+      <div style="margin-top:12px"><label class="label">Nb de posts à scraper par concurrent</label><input class="input" id="posts-limit" type="number" value="50" min="5" max="200" style="width:120px"></div>
       <button class="btn primary" style="margin-top:12px" onclick="saveKeys()">Sauvegarder les clés</button>
     </div>
- 
-    <div class="card" id="status-card" style="display:none">
-      <div class="card-title">Statut</div>
-      <div id="config-status-list"></div>
-    </div>
+    <div class="card" id="status-card" style="display:none"><div class="card-title">Statut</div><div id="config-status-list"></div></div>
   </div>
  
   <!-- LIBRARY -->
@@ -202,17 +169,14 @@ input[type=file]{display:none}
     <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
       <div style="font-size:28px;margin-bottom:6px">🖼️</div>
       Glisse tes photos ici ou clique pour importer<br>
-      <span style="font-size:12px;margin-top:4px;display:block">JPG, PNG, HEIC — jusqu'à 200 photos — synchronisées sur tous tes appareils</span>
+      <span style="font-size:12px;margin-top:4px;display:block">JPG, PNG, HEIC — synchronisées sur tous tes appareils</span>
     </div>
     <div id="upload-progress" style="display:none">
       <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
       <div id="prog-label" style="font-size:12px;color:#888;margin-top:4px"></div>
     </div>
     <div id="photo-grid" class="photo-grid"></div>
-    <div id="lib-empty" class="empty-state" style="display:none">
-      <div style="font-size:32px">📂</div>
-      <p style="margin-top:8px">Ta bibliothèque est vide — ajoute des photos pour commencer</p>
-    </div>
+    <div id="lib-empty" class="empty-state" style="display:none"><div style="font-size:32px">📂</div><p style="margin-top:8px">Ta bibliothèque est vide</p></div>
   </div>
  
   <!-- CLONE -->
@@ -222,13 +186,9 @@ input[type=file]{display:none}
       <div>
         <div class="card">
           <div class="card-title">Post à cloner</div>
-          <div class="row">
-            <input class="input" id="insta-url" placeholder="https://www.instagram.com/p/...">
-            <button class="btn primary" onclick="analyzePost()">Analyser</button>
-          </div>
-          <div class="paste-area" id="paste-area" onclick="document.getElementById('post-img-input').click()" ondragover="ev.preventDefault()" ondrop="onImgDrop(event)">
-            <div style="font-size:20px">📷</div>
-            <span>Ou colle / glisse un screenshot</span>
+          <div class="row"><input class="input" id="insta-url" placeholder="https://www.instagram.com/p/..."><button class="btn primary" onclick="analyzePost()">Analyser</button></div>
+          <div class="paste-area" id="paste-area" onclick="document.getElementById('post-img-input').click()" ondrop="onImgDrop(event)" ondragover="event.preventDefault()">
+            <div style="font-size:20px">📷</div><span>Ou colle / glisse un screenshot</span>
             <input type="file" id="post-img-input" accept="image/*" onchange="handlePostImg(event)">
           </div>
         </div>
@@ -253,9 +213,7 @@ input[type=file]{display:none}
           <div id="matches-grid" class="matches-grid"></div>
           <div style="height:1px;background:rgba(0,0,0,0.06);margin:1rem 0"></div>
           <div class="card-title">Aperçu final</div>
-          <div class="result-preview" id="result-preview">
-            <div style="display:flex;align-items:center;justify-content:center;height:200px;color:#ccc;font-size:13px">Sélectionne une photo</div>
-          </div>
+          <div class="result-preview" id="result-preview"><div style="display:flex;align-items:center;justify-content:center;height:200px;color:#ccc;font-size:13px">Sélectionne une photo</div></div>
           <div class="actions-row">
             <button class="btn primary" id="dl-btn" onclick="downloadPost()" style="display:none">⬇ Télécharger</button>
             <button class="btn" id="save-hist-btn" onclick="saveToHistory()" style="display:none">Sauvegarder</button>
@@ -273,14 +231,25 @@ input[type=file]{display:none}
       <div class="stat-box"><div class="lbl">Slides stockées</div><div class="val" id="s-slides">0</div></div>
       <div class="stat-box"><div class="lbl">Concurrents</div><div class="val" id="s-comps">0</div></div>
     </div>
- <div class="card" style="margin-bottom:1rem">
-  <div class="card-title">Importer un export Apify (JSON)</div>
-  <div class="row">
-    <input type="file" id="json-import" accept=".json" style="display:none" onchange="importApifyJSON(event)">
-    <button class="btn primary" onclick="document.getElementById('json-import').click()">Importer JSON Apify</button>
-    <span style="font-size:12px;color:#888;align-self:center">Export depuis Apify → All fields → JSON</span>
-  </div>
-</div>
+ 
+    <div class="card">
+      <div class="card-title">Importer un export Apify (JSON)</div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <input type="file" id="json-import" accept=".json" style="display:none" onchange="importApifyJSON(event)">
+        <button class="btn primary" onclick="document.getElementById('json-import').click()">Importer JSON Apify</button>
+        <span style="font-size:12px;color:#888">Export depuis Apify → All fields → JSON</span>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-title">Analyser les photos récurrentes</div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px">
+        <button class="btn primary" onclick="analyzeRecurringPhotos()">🔍 Analyser les photos récurrentes</button>
+        <span style="font-size:12px;color:#888">Claude compare toutes les slides et regroupe les visuels similaires</span>
+      </div>
+      <div id="recurring-results"></div>
+    </div>
+ 
     <div class="card">
       <div class="card-title">Ajouter un concurrent</div>
       <div class="row">
@@ -292,120 +261,12 @@ input[type=file]{display:none}
     <div class="card">
       <div class="card-title">Mes concurrents (<span id="comp-count">0</span>)</div>
       <div id="comp-list"><div class="empty-state" style="padding:1rem">Aucun concurrent</div></div>
-      <div id="scrape-all-wrap" style="display:none;margin-top:1rem;display:flex;align-items:center;gap:12px">
-        <button class="btn primary" onclick="scrapeAll()" id="scrape-all-btn">Scraper tous</button>
+      <div id="scrape-all-wrap" style="display:none;margin-top:1rem;gap:12px">
+        <button class="btn primary" onclick="scrapeAll()">Scraper tous</button>
         <span style="font-size:12px;color:#888">1 run Apify par concurrent</span>
       </div>
     </div>
- // ─── ANALYSE PHOTOS RÉCURRENTES ──────────────────────────────────────────────
-async function analyzeRecurringPhotos() {
-  if (!spyPosts.length) { setStatus('spy-status','Importe des posts d\'abord','error'); return; }
-  
-  const resultsEl = document.getElementById('recurring-results');
-  resultsEl.innerHTML = '<div class="status info"><div class="spinner"></div> Chargement de toutes les slides...</div>';
-
-  // Collecter toutes les slides avec leurs métadonnées
-  const allSlides = [];
-  for (const post of spyPosts) {
-    let slides = [];
-    try { slides = JSON.parse(post.slides || '[]'); } catch {}
-    for (const slide of slides) {
-      if (slide.url) allSlides.push({ url: slide.url, postId: post.id, postLikes: post.likes, postUrl: post.url, owner: post.owner });
-    }
-  }
-
-  if (!allSlides.length) { resultsEl.innerHTML = '<div class="status error">✗ Aucune slide trouvée</div>'; return; }
-
-  resultsEl.innerHTML = `<div class="status info"><div class="spinner"></div> Analyse de ${allSlides.length} slides par Claude Vision... (peut prendre 1-2 min)</div>`;
-
-  // Charger les images en base64 par batch de 8
-  const batchSize = 8;
-  const batches = [];
-  for (let i = 0; i < allSlides.length; i += batchSize) {
-    batches.push(allSlides.slice(i, i + batchSize));
-  }
-
-  const allDescriptions = [];
-  let processed = 0;
-
-  for (const batch of batches) {
-    const imgMsgs = [];
-    const batchMeta = [];
-    
-    for (const slide of batch) {
-      try {
-        const r = await fetch(slide.url);
-        if (!r.ok) continue;
-        const blob = await r.blob();
-        const b64 = await blobToB64(blob);
-        imgMsgs.push({ type: 'image', source: { type: 'base64', media_type: blob.type || 'image/jpeg', data: b64.split(',')[1] }});
-        batchMeta.push(slide);
-      } catch(e) { continue; }
-    }
-
-    if (!imgMsgs.length) continue;
-
-    try {
-      const sys = `Tu es expert en analyse visuelle Instagram. Pour chaque image, donne une description courte et précise du SUJET VISUEL PRINCIPAL (ignore le texte superposé). Format JSON strict: {"descriptions":["description1","description2",...]} — autant de descriptions que d'images, dans le même ordre.`;
-      const msgs = [{ role: 'user', content: [
-        ...imgMsgs,
-        { type: 'text', text: `Décris chacune de ces ${imgMsgs.length} images en 5-8 mots max. Focus sur le sujet visuel (personne, objet, lieu, style). Ignore tout texte superposé.` }
-      ]}];
-      const raw = await callClaude(msgs, sys);
-      const result = JSON.parse(raw.replace(/```json|```/g,'').trim());
-      const descs = result.descriptions || [];
-      descs.forEach((desc, i) => {
-        if (batchMeta[i]) allDescriptions.push({ ...batchMeta[i], description: desc });
-      });
-    } catch(e) { console.error('Batch error:', e); }
-
-    processed += batch.length;
-    resultsEl.innerHTML = `<div class="status info"><div class="spinner"></div> Analysé ${processed}/${allSlides.length} slides...</div>`;
-  }
-
-  // Regrouper par similarité
-  resultsEl.innerHTML = '<div class="status info"><div class="spinner"></div> Regroupement des photos similaires...</div>';
-  
-  const groups = {};
-  for (const item of allDescriptions) {
-    const key = normalizeDesc(item.description);
-    if (!groups[key]) groups[key] = { description: item.description, slides: [], totalLikes: 0 };
-    groups[key].slides.push(item);
-    groups[key].totalLikes += item.postLikes || 0;
-  }
-
-  // Trier par fréquence d'utilisation
-  const sorted = Object.values(groups).sort((a, b) => b.slides.length - a.slides.length);
-
-  // Afficher les résultats
-  resultsEl.innerHTML = `
-    <div style="font-size:13px;font-weight:500;margin-bottom:12px;color:#666">${sorted.length} types de photos identifiés sur ${allSlides.length} slides analysées</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px">
-      ${sorted.map((g, i) => `
-        <div style="background:white;border:1px solid rgba(0,0,0,0.08);border-radius:10px;overflow:hidden">
-          <div style="position:relative;aspect-ratio:1;background:#f0f0ec;overflow:hidden">
-            <img src="${g.slides[0].url}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.style.display='none'">
-            <div style="position:absolute;top:6px;left:6px;background:#1a1a1a;color:white;border-radius:20px;font-size:11px;font-weight:600;padding:3px 8px">${g.slides.length}x utilisée</div>
-            ${g.slides.length > 1 ? `<div style="position:absolute;bottom:6px;right:6px;display:flex;gap:4px">
-              ${g.slides.slice(1,4).map(s => `<img src="${s.url}" style="width:28px;height:28px;border-radius:4px;object-fit:cover;border:1px solid white" onerror="this.style.display='none'">`).join('')}
-            </div>` : ''}
-          </div>
-          <div style="padding:10px">
-            <div style="font-size:12px;font-weight:500;margin-bottom:4px">${g.description}</div>
-            <div style="font-size:11px;color:#888">♥ ${g.totalLikes.toLocaleString('fr-FR')} likes cumulés</div>
-            <div style="font-size:11px;color:#888;margin-top:2px">Dans ${g.slides.length} post${g.slides.length>1?'s':''}</div>
-          </div>
-        </div>`).join('')}
-    </div>`;
-}
-
-function normalizeDesc(desc) {
-  return desc.toLowerCase()
-    .replace(/[àâä]/g,'a').replace(/[éèêë]/g,'e').replace(/[îï]/g,'i')
-    .replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u')
-    .replace(/[^a-z0-9\s]/g,'').trim()
-    .split(' ').sort().join(' ');
-}
+ 
     <div class="filter-bar" id="spy-filters" style="display:none">
       <button class="filter-btn active" onclick="setSpyFilter('all',this)">Tous</button>
       <button class="filter-btn" onclick="setSpyFilter('carousel',this)">Carrousels</button>
@@ -430,736 +291,367 @@ function normalizeDesc(desc) {
   <!-- HISTORY -->
   <div id="panel-history" class="panel">
     <div id="hist-list"></div>
-    <div id="hist-empty" class="empty-state" style="display:none">
-      <div style="font-size:32px">🕐</div>
-      <p style="margin-top:8px">Aucun post généré pour l'instant</p>
-    </div>
+    <div id="hist-empty" class="empty-state" style="display:none"><div style="font-size:32px">🕐</div><p style="margin-top:8px">Aucun post généré pour l'instant</p></div>
   </div>
 </div>
  
 <script>
-// ─── STATE ───────────────────────────────────────────────────────────────────
-let sb = null;
-let photos = [];
-let competitors = [];
-let spyPosts = [];
-let history = [];
-let currentAnalysis = null;
-let currentCaption = '';
-let currentPostImg = null;
-let selectedMatchIdx = -1;
-let selectedMatchSrc = '';
-let spyFilter = 'all';
+let sb=null,photos=[],competitors=[],spyPosts=[],history=[],currentAnalysis=null,currentCaption='',currentPostImg=null,selectedMatchSrc='',spyFilter='all';
  
-// ─── SUPABASE INIT ────────────────────────────────────────────────────────────
-async function initSupabase() {
-  const url = document.getElementById('sb-url').value.trim();
-  const key = document.getElementById('sb-key').value.trim();
-  if (!url || !key) { setStatus('sb-status','Entre l\'URL et la clé Supabase','error'); return; }
- 
-  try {
-    sb = supabase.createClient(url, key);
-    await setupTables();
-    localStorage.setItem('sb_url', url);
-    localStorage.setItem('sb_key', key);
+async function initSupabase(){
+  const url=document.getElementById('sb-url').value.trim(),key=document.getElementById('sb-key').value.trim();
+  if(!url||!key){setStatus('sb-status','Entre l\'URL et la clé Supabase','error');return;}
+  try{
+    sb=supabase.createClient(url,key);
+    const{error}=await sb.from('settings').select('key').limit(1);
+    if(error&&error.code==='42P01'){showSQLInstructions();throw new Error('Tables manquantes');}
+    localStorage.setItem('sb_url',url);localStorage.setItem('sb_key',key);
     setStatus('sb-status','✓ Supabase connecté !','success');
-    document.getElementById('keys-card').style.display = 'block';
-    document.getElementById('status-card').style.display = 'block';
-    await loadAllData();
-    updateSyncStatus('Connecté');
-  } catch(e) {
-    setStatus('sb-status','Erreur: ' + e.message,'error');
-  }
+    document.getElementById('keys-card').style.display='block';
+    document.getElementById('status-card').style.display='block';
+    await loadAllData();updateSyncStatus('Connecté');
+  }catch(e){setStatus('sb-status','Erreur: '+e.message,'error');}
 }
  
-async function setupTables() {
-  // Create tables via RPC if not exist — using simple inserts to check
-  const tables = ['photos','competitors','spy_posts','history','settings'];
-  // Tables are created via Supabase SQL editor — we just verify connection
-  const { error } = await sb.from('settings').select('key').limit(1);
-  if (error && error.code === '42P01') {
-    // Tables don't exist yet — show SQL instructions
-    showSQLInstructions();
-    throw new Error('Tables manquantes — voir instructions ci-dessous');
-  }
-}
- 
-function showSQLInstructions() {
-  document.getElementById('config-status-list').innerHTML = `
-    <div class="status warning">
-      <div>
-        <strong>Étape requise :</strong> Crée les tables dans Supabase.<br>
-        <span style="font-size:12px">Va dans ton projet Supabase → SQL Editor → colle et exécute ce code :</span>
-        <pre style="background:#1a1a1a;color:#fff;padding:12px;border-radius:8px;font-size:11px;margin-top:8px;overflow-x:auto;white-space:pre-wrap">create table if not exists settings (key text primary key, value text);
+function showSQLInstructions(){
+  document.getElementById('config-status-list').innerHTML=`<div class="status warning"><div><strong>Crée les tables dans Supabase → SQL Editor :</strong><pre style="background:#1a1a1a;color:#fff;padding:12px;border-radius:8px;font-size:11px;margin-top:8px;overflow-x:auto;white-space:pre-wrap">create table if not exists settings (key text primary key, value text);
 create table if not exists photos (id uuid default gen_random_uuid() primary key, name text, url text, created_at timestamptz default now());
 create table if not exists competitors (id uuid default gen_random_uuid() primary key, handle text unique, status text default 'idle', post_count int default 0, last_scraped timestamptz, created_at timestamptz default now());
 create table if not exists spy_posts (id text primary key, owner text, type text, likes int default 0, comments int default 0, views int default 0, caption text, display_url text, slides jsonb, url text, created_at timestamptz default now());
 create table if not exists history (id uuid default gen_random_uuid() primary key, caption text, post_url text, owner text, photo_url text, created_at timestamptz default now());
-create storage bucket if not exists photos;
-insert into storage.buckets (id, name, public) values ('photos', 'photos', true) on conflict do nothing;</pre>
-        <button class="btn primary" style="margin-top:8px;font-size:12px" onclick="initSupabase()">J'ai exécuté le SQL — Reconnecter</button>
-      </div>
-    </div>`;
+insert into storage.buckets (id, name, public) values ('photos', 'photos', true) on conflict do nothing;</pre><button class="btn primary" style="margin-top:8px;font-size:12px" onclick="initSupabase()">Reconnecter</button></div></div>`;
 }
  
-async function loadAllData() {
-  await Promise.all([loadPhotos(), loadCompetitors(), loadSpyPosts(), loadHistory(), loadSettings()]);
+async function loadAllData(){await Promise.all([loadPhotos(),loadCompetitors(),loadSpyPosts(),loadHistory(),loadSettings()]);renderConfigStatus();}
+ 
+async function loadSettings(){
+  if(!sb)return;const{data}=await sb.from('settings').select('*');if(!data)return;
+  const map={};data.forEach(r=>map[r.key]=r.value);
+  if(map.anthropic_key){document.getElementById('anthropic-key').value=map.anthropic_key;document.getElementById('ant-saved').style.display='block';}
+  if(map.apify_key){document.getElementById('apify-key').value=map.apify_key;document.getElementById('apify-saved').style.display='block';}
+  if(map.posts_limit)document.getElementById('posts-limit').value=map.posts_limit;
+}
+ 
+async function saveKeys(){
+  if(!sb){alert('Connecte Supabase d\'abord');return;}
+  const antKey=document.getElementById('anthropic-key').value.trim(),apifyKey=document.getElementById('apify-key').value.trim(),limit=document.getElementById('posts-limit').value;
+  const upserts=[];
+  if(antKey)upserts.push({key:'anthropic_key',value:antKey});
+  if(apifyKey)upserts.push({key:'apify_key',value:apifyKey});
+  upserts.push({key:'posts_limit',value:limit});
+  await sb.from('settings').upsert(upserts,{onConflict:'key'});
+  document.getElementById('ant-saved').style.display=antKey?'block':'none';
+  document.getElementById('apify-saved').style.display=apifyKey?'block':'none';
   renderConfigStatus();
 }
  
-async function loadSettings() {
-  if (!sb) return;
-  const { data } = await sb.from('settings').select('*');
-  if (!data) return;
-  const map = {};
-  data.forEach(r => map[r.key] = r.value);
-  if (map.anthropic_key) { document.getElementById('anthropic-key').value = map.anthropic_key; document.getElementById('ant-saved').style.display='block'; }
-  if (map.apify_key) { document.getElementById('apify-key').value = map.apify_key; document.getElementById('apify-saved').style.display='block'; }
-  if (map.posts_limit) document.getElementById('posts-limit').value = map.posts_limit;
+function getKey(id){return document.getElementById(id).value.trim();}
+ 
+function renderConfigStatus(){
+  const antOk=!!getKey('anthropic-key'),apifyOk=!!getKey('apify-key'),sbOk=!!sb;
+  document.getElementById('config-status-list').innerHTML=`<div style="display:flex;flex-direction:column;gap:8px;font-size:13px"><div>${sbOk?'✅':'❌'} Supabase ${sbOk?'connecté':'non connecté'}</div><div>${antOk?'✅':'❌'} Clé Anthropic ${antOk?'présente':'manquante'}</div><div>${apifyOk?'✅':'❌'} Clé Apify ${apifyOk?'présente':'manquante'}</div><div>${photos.length>0?'✅':'⚪'} ${photos.length} photo(s) dans la bibliothèque</div></div>`;
 }
  
-async function saveKeys() {
-  if (!sb) { alert('Connecte Supabase d\'abord'); return; }
-  const antKey = document.getElementById('anthropic-key').value.trim();
-  const apifyKey = document.getElementById('apify-key').value.trim();
-  const limit = document.getElementById('posts-limit').value;
- 
-  const upserts = [];
-  if (antKey) upserts.push({ key: 'anthropic_key', value: antKey });
-  if (apifyKey) upserts.push({ key: 'apify_key', value: apifyKey });
-  upserts.push({ key: 'posts_limit', value: limit });
- 
-  await sb.from('settings').upsert(upserts, { onConflict: 'key' });
-  document.getElementById('ant-saved').style.display = antKey ? 'block' : 'none';
-  document.getElementById('apify-saved').style.display = apifyKey ? 'block' : 'none';
-  renderConfigStatus();
-}
- 
-function getKey(id) { return document.getElementById(id).value.trim(); }
- 
-function renderConfigStatus() {
-  const antOk = !!getKey('anthropic-key');
-  const apifyOk = !!getKey('apify-key');
-  const sbOk = !!sb;
-  document.getElementById('config-status-list').innerHTML = `
-    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
-      <div style="display:flex;align-items:center;gap:8px">${sbOk?'✅':'❌'} Supabase ${sbOk?'connecté':'non connecté'}</div>
-      <div style="display:flex;align-items:center;gap:8px">${antOk?'✅':'❌'} Clé Anthropic (Claude) ${antOk?'présente':'manquante'}</div>
-      <div style="display:flex;align-items:center;gap:8px">${apifyOk?'✅':'❌'} Clé Apify ${apifyOk?'présente':'manquante'}</div>
-      <div style="display:flex;align-items:center;gap:8px">${photos.length>0?'✅':'⚪'} ${photos.length} photo(s) dans la bibliothèque</div>
-    </div>`;
-}
- 
-// ─── TABS ────────────────────────────────────────────────────────────────────
-function switchTab(id, el) {
+function switchTab(id,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('panel-'+id).classList.add('active');
-  if (id==='library') renderLibrary();
-  if (id==='spy') renderSpyPosts();
-  if (id==='history') renderHistory();
+  el.classList.add('active');document.getElementById('panel-'+id).classList.add('active');
+  if(id==='library')renderLibrary();if(id==='spy')renderSpyPosts();if(id==='history')renderHistory();
 }
  
-function setStatus(elId, msg, type) {
-  const icons = {info:'<div class="spinner"></div>',success:'✓',error:'✗',warning:'!'};
-  document.getElementById(elId).innerHTML = `<div class="status ${type}">${icons[type]} ${msg}</div>`;
-}
-function clearStatus(elId) { document.getElementById(elId).innerHTML=''; }
-function updateSyncStatus(msg) { document.getElementById('sync-status').textContent = msg; }
+function setStatus(elId,msg,type){const icons={info:'<div class="spinner"></div>',success:'✓',error:'✗',warning:'!'};document.getElementById(elId).innerHTML=`<div class="status ${type}">${icons[type]} ${msg}</div>`;}
+function clearStatus(elId){document.getElementById(elId).innerHTML='';}
+function updateSyncStatus(msg){document.getElementById('sync-status').textContent=msg;}
  
-// ─── LIBRARY ─────────────────────────────────────────────────────────────────
-async function loadPhotos() {
-  if (!sb) return;
-  const { data } = await sb.from('photos').select('*').order('created_at', { ascending: false });
-  photos = data || [];
-  renderLibrary();
-}
+async function loadPhotos(){if(!sb)return;const{data}=await sb.from('photos').select('*').order('created_at',{ascending:false});photos=data||[];renderLibrary();}
  
-function renderLibrary() {
-  const grid = document.getElementById('photo-grid');
-  const empty = document.getElementById('lib-empty');
-  document.getElementById('photo-count').textContent = photos.length + ' photo(s)';
-  if (photos.length === 0) { grid.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display = 'none';
-  grid.innerHTML = photos.map(p => `
-    <div class="photo-card">
-      <img src="${p.url}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23f0f0ec%22/></svg>'">
-      <div class="overlay"><button class="del-btn" onclick="deletePhoto('${p.id}','${p.name}',event)">✕</button></div>
-    </div>`).join('');
+function renderLibrary(){
+  const grid=document.getElementById('photo-grid'),empty=document.getElementById('lib-empty');
+  document.getElementById('photo-count').textContent=photos.length+' photo(s)';
+  if(!photos.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  grid.innerHTML=photos.map(p=>`<div class="photo-card"><img src="${p.url}" alt="${p.name}" loading="lazy"><div class="overlay"><button class="del-btn" onclick="deletePhoto('${p.id}','${p.name}',event)">✕</button></div></div>`).join('');
 }
  
-async function uploadPhotos(e) {
-  if (!sb) { alert('Connecte Supabase d\'abord dans Config'); return; }
-  const files = Array.from(e.target.files);
-  if (!files.length) return;
-  document.getElementById('upload-progress').style.display='block';
-  let done = 0;
-  for (const file of files) {
-    const path = `${Date.now()}_${file.name.replace(/\s/g,'_')}`;
-    document.getElementById('prog-label').textContent = `Upload ${done+1}/${files.length} : ${file.name}`;
-    const { error } = await sb.storage.from('photos').upload(path, file, { contentType: file.type });
-    if (!error) {
-      const { data: { publicUrl } } = sb.storage.from('photos').getPublicUrl(path);
-      await sb.from('photos').insert({ name: file.name, url: publicUrl });
-    }
-    done++;
-    document.getElementById('prog-fill').style.width = Math.round(done/files.length*100)+'%';
+async function uploadPhotos(e){
+  if(!sb){alert('Connecte Supabase d\'abord');return;}
+  const files=Array.from(e.target.files);if(!files.length)return;
+  document.getElementById('upload-progress').style.display='block';let done=0;
+  for(const file of files){
+    const path=`${Date.now()}_${file.name.replace(/\s/g,'_')}`;
+    document.getElementById('prog-label').textContent=`Upload ${done+1}/${files.length}: ${file.name}`;
+    const{error}=await sb.storage.from('photos').upload(path,file,{contentType:file.type});
+    if(!error){const{data:{publicUrl}}=sb.storage.from('photos').getPublicUrl(path);await sb.from('photos').insert({name:file.name,url:publicUrl});}
+    done++;document.getElementById('prog-fill').style.width=Math.round(done/files.length*100)+'%';
   }
-  document.getElementById('upload-progress').style.display='none';
-  e.target.value='';
-  await loadPhotos();
-  setStatus('lib-status', `${done} photo(s) uploadée(s) avec succès`, 'success');
-  setTimeout(()=>clearStatus('lib-status'), 3000);
+  document.getElementById('upload-progress').style.display='none';e.target.value='';
+  await loadPhotos();setStatus('lib-status',`${done} photo(s) uploadée(s) !`,'success');setTimeout(()=>clearStatus('lib-status'),3000);
 }
  
-async function deletePhoto(id, name, e) {
-  e.stopPropagation();
-  if (!confirm('Supprimer cette photo ?')) return;
-  await sb.storage.from('photos').remove([name]);
-  await sb.from('photos').delete().eq('id', id);
-  await loadPhotos();
+async function deletePhoto(id,name,e){
+  e.stopPropagation();if(!confirm('Supprimer?'))return;
+  await sb.storage.from('photos').remove([name]);await sb.from('photos').delete().eq('id',id);await loadPhotos();
 }
  
-// Drag & drop library
-const dz = document.getElementById('drop-zone');
-dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
-dz.addEventListener('dragleave', () => dz.classList.remove('over'));
-dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('over'); const input = document.getElementById('file-input'); const dt = e.dataTransfer; if(dt.files.length){ const ev = {target:{files:dt.files,value:''}}; uploadPhotos(ev); }});
+const dz=document.getElementById('drop-zone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('over');if(e.dataTransfer.files.length)uploadPhotos({target:{files:e.dataTransfer.files,value:''}});});
  
-// ─── CLAUDE API ───────────────────────────────────────────────────────────────
-async function callClaude(messages, system='') {
-  const key = getKey('anthropic-key');
-  if (!key) throw new Error('Clé Anthropic manquante — va dans Config');
-  const body = { model:'claude-sonnet-4-20250514', max_tokens:1000, messages };
-  if (system) body.system = system;
-  const r = await fetch('https://api.anthropic.com/v1/messages', {
-    method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify(body)
-  });
-  const d = await r.json();
-  if (d.error) throw new Error(d.error.message);
+async function callClaude(messages,system=''){
+  const key=getKey('anthropic-key');if(!key)throw new Error('Clé Anthropic manquante — va dans Config');
+  const body={model:'claude-sonnet-4-20250514',max_tokens:1000,messages};if(system)body.system=system;
+  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify(body)});
+  const d=await r.json();if(d.error)throw new Error(d.error.message);
   return d.content.map(c=>c.text||'').join('');
 }
  
-// ─── CLONE ────────────────────────────────────────────────────────────────────
-function onImgDrop(e) {
-  e.preventDefault();
-  const file = e.dataTransfer.files[0];
-  if (file && file.type.startsWith('image/')) handlePostImgFile(file);
-}
-function handlePostImg(e) { if(e.target.files[0]) handlePostImgFile(e.target.files[0]); }
-function handlePostImgFile(file) {
-  const reader = new FileReader();
-  reader.onload = ev => {
-    currentPostImg = ev.target.result;
-    const pa = document.getElementById('paste-area');
-    pa.innerHTML = `<img src="${currentPostImg}" style="max-height:180px;border-radius:6px">`;
-  };
-  reader.readAsDataURL(file);
-}
+function onImgDrop(e){e.preventDefault();const file=e.dataTransfer.files[0];if(file&&file.type.startsWith('image/'))handlePostImgFile(file);}
+function handlePostImg(e){if(e.target.files[0])handlePostImgFile(e.target.files[0]);}
+function handlePostImgFile(file){const reader=new FileReader();reader.onload=ev=>{currentPostImg=ev.target.result;document.getElementById('paste-area').innerHTML=`<img src="${currentPostImg}" style="max-height:180px;border-radius:6px">`;};reader.readAsDataURL(file);}
  
-async function analyzePost() {
-  const url = document.getElementById('insta-url').value.trim();
-  if (!url && !currentPostImg) { setStatus('clone-status','Colle une URL ou un screenshot','error'); return; }
-  if (photos.length === 0) { setStatus('clone-status','Ajoute des photos dans ta bibliothèque d\'abord','error'); return; }
- 
+async function analyzePost(){
+  const url=document.getElementById('insta-url').value.trim();
+  if(!url&&!currentPostImg){setStatus('clone-status','Colle une URL ou un screenshot','error');return;}
+  if(!photos.length){setStatus('clone-status','Ajoute des photos dans ta bibliothèque d\'abord','error');return;}
   setStatus('clone-status','Analyse du post en cours...','info');
-  try {
-    const sys = `Tu es expert Instagram. Réponds UNIQUEMENT en JSON valide sans markdown:
-{"style":"description style visuel","mood":"ambiance 2-3 mots","themes":["t1","t2","t3"],"original_caption":"légende originale","caption_fr":"légende adaptée en français même ton motivant avec emojis et hashtags FR","aspect_ratio":"square|portrait|landscape"}`;
- 
+  try{
+    const sys=`Tu es expert Instagram. Réponds UNIQUEMENT en JSON valide sans markdown:{"style":"description style visuel","mood":"ambiance 2-3 mots","themes":["t1","t2","t3"],"original_caption":"légende originale","caption_fr":"légende adaptée en français même ton motivant avec emojis et hashtags FR","aspect_ratio":"square|portrait|landscape"}`;
     let msgs;
-    if (currentPostImg) {
-      const b64 = currentPostImg.split(',')[1];
-      const mt = currentPostImg.startsWith('data:image/png') ? 'image/png' : 'image/jpeg';
-      msgs = [{role:'user',content:[
-        {type:'image',source:{type:'base64',media_type:mt,data:b64}},
-        {type:'text',text:`Analyse ce post Instagram${url?' (URL: '+url+')':''}. Extrais style, ambiance, légende et traduis en français motivant.`}
-      ]}];
-    } else {
-      msgs = [{role:'user',content:`Analyse ce post Instagram: ${url}. Génère comme si c'était un post fitness/motivation anglophone et crée une légende française.`}];
-    }
- 
-    const raw = await callClaude(msgs, sys);
-    currentAnalysis = JSON.parse(raw.replace(/```json|```/g,'').trim());
- 
+    if(currentPostImg){const b64=currentPostImg.split(',')[1],mt=currentPostImg.startsWith('data:image/png')?'image/png':'image/jpeg';msgs=[{role:'user',content:[{type:'image',source:{type:'base64',media_type:mt,data:b64}},{type:'text',text:`Analyse ce post Instagram${url?' (URL: '+url+')':''}. Extrais style, ambiance, légende et traduis en français motivant.`}]}];}
+    else{msgs=[{role:'user',content:`Analyse ce post Instagram: ${url}. Génère une légende française motivante.`}];}
+    const raw=await callClaude(msgs,sys);
+    currentAnalysis=JSON.parse(raw.replace(/```json|```/g,'').trim());
     document.getElementById('analysis-card').style.display='block';
-    document.getElementById('analysis-tags').innerHTML =
-      (currentAnalysis.themes||[]).map(t=>`<span class="tag">${t}</span>`).join('') +
-      `<span class="tag" style="background:#dbeafe;color:#1d4ed8">${currentAnalysis.mood||''}</span>`;
-    document.getElementById('analysis-text').textContent = currentAnalysis.style||'';
- 
-    currentCaption = currentAnalysis.caption_fr||'';
-    document.getElementById('caption-area').innerHTML = `<div class="caption-box">${currentCaption}</div>`;
+    document.getElementById('analysis-tags').innerHTML=(currentAnalysis.themes||[]).map(t=>`<span class="tag">${t}</span>`).join('')+`<span class="tag" style="background:#dbeafe;color:#1d4ed8">${currentAnalysis.mood||''}</span>`;
+    document.getElementById('analysis-text').textContent=currentAnalysis.style||'';
+    currentCaption=currentAnalysis.caption_fr||'';
+    document.getElementById('caption-area').innerHTML=`<div class="caption-box">${currentCaption}</div>`;
     document.getElementById('caption-actions').style.display='flex';
- 
     setStatus('clone-status','Recherche de tes photos similaires...','info');
     await findMatches();
- 
-    clearStatus('clone-status');
-    setStatus('clone-status','Post analysé ! Sélectionne une photo.','success');
-    setTimeout(()=>clearStatus('clone-status'), 3000);
-  } catch(e) { setStatus('clone-status','Erreur: '+e.message,'error'); }
+    clearStatus('clone-status');setStatus('clone-status','Post analysé ! Sélectionne une photo.','success');setTimeout(()=>clearStatus('clone-status'),3000);
+  }catch(e){setStatus('clone-status','Erreur: '+e.message,'error');}
 }
  
-async function findMatches() {
-  const sample = photos.slice(0,12);
-  if (!sample.length) return;
- 
-  const sys = `Expert photo Instagram. Réponds UNIQUEMENT en JSON: {"ranked":[{"index":0,"score":95,"reason":"courte raison"},{"index":1,"score":80,"reason":"..."},{"index":2,"score":70,"reason":"..."}]}`;
- 
-  // Fetch first few photos as base64 for vision
-  const photoMsgs = [];
-  for (const p of sample.slice(0,6)) {
-    try {
-      const r = await fetch(p.url);
-      const blob = await r.blob();
-      const b64 = await blobToB64(blob);
-      photoMsgs.push({type:'image',source:{type:'base64',media_type:blob.type||'image/jpeg',data:b64.split(',')[1]}});
-    } catch(e) {}
-  }
- 
-  if (!photoMsgs.length) {
-    renderFallbackMatches(sample);
-    return;
-  }
- 
-  try {
-    const msgs = [{role:'user',content:[
-      ...photoMsgs,
-      {type:'text',text:`Classe les 3 meilleures parmi ces ${photoMsgs.length} photos pour ce style: "${currentAnalysis?.style}". Ambiance: "${currentAnalysis?.mood}". Retourne exactement 3 résultats.`}
-    ]}];
-    const raw = await callClaude(msgs, sys);
-    const result = JSON.parse(raw.replace(/```json|```/g,'').trim());
-    renderMatches(result.ranked||[], sample);
-  } catch(e) { renderFallbackMatches(sample); }
+async function findMatches(){
+  const sample=photos.slice(0,12);if(!sample.length)return;
+  const sys=`Expert photo Instagram. Réponds UNIQUEMENT en JSON: {"ranked":[{"index":0,"score":95,"reason":"raison"},{"index":1,"score":80,"reason":"..."},{"index":2,"score":70,"reason":"..."}]}`;
+  const photoMsgs=[];
+  for(const p of sample.slice(0,6)){try{const r=await fetch(p.url),blob=await r.blob(),b64=await blobToB64(blob);photoMsgs.push({type:'image',source:{type:'base64',media_type:blob.type||'image/jpeg',data:b64.split(',')[1]}});}catch(e){}}
+  if(!photoMsgs.length){renderFallbackMatches(sample);return;}
+  try{const msgs=[{role:'user',content:[...photoMsgs,{type:'text',text:`Classe les 3 meilleures parmi ces ${photoMsgs.length} photos pour ce style: "${currentAnalysis?.style}". Ambiance: "${currentAnalysis?.mood}". Retourne exactement 3 résultats.`}]}];const raw=await callClaude(msgs,sys);renderMatches(JSON.parse(raw.replace(/```json|```/g,'').trim()).ranked||[],sample);}
+  catch(e){renderFallbackMatches(sample);}
 }
  
-function blobToB64(blob) {
-  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(blob); });
-}
+function blobToB64(blob){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob);});}
+function renderMatches(ranked,sample){document.getElementById('matches-card').style.display='block';document.getElementById('matches-grid').innerHTML=ranked.slice(0,3).map(r=>{const p=sample[r.index];if(!p)return'';return`<div class="match-card" onclick="selectMatch(this,'${p.url}')"><img src="${p.url}" loading="lazy"><span class="score-badge">${r.score}%</span></div>`;}).join('');}
+function renderFallbackMatches(sample){document.getElementById('matches-card').style.display='block';document.getElementById('matches-grid').innerHTML=sample.slice(0,3).map(p=>`<div class="match-card" onclick="selectMatch(this,'${p.url}')"><img src="${p.url}" loading="lazy"></div>`).join('');}
+function selectMatch(el,src){document.querySelectorAll('.match-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');selectedMatchSrc=src;document.getElementById('result-preview').innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover"><div class="result-overlay">${currentCaption.substring(0,80)}...</div>`;document.getElementById('dl-btn').style.display='inline-flex';document.getElementById('save-hist-btn').style.display='inline-flex';}
+function copyCaption(){navigator.clipboard.writeText(currentCaption).then(()=>{setStatus('clone-status','Légende copiée !','success');setTimeout(()=>clearStatus('clone-status'),2000);});}
+async function regenCaption(){if(!currentAnalysis)return;setStatus('clone-status','Génération...','info');try{const msg=`Génère une nouvelle légende Instagram en français, différente mais même ton motivant. Thèmes: ${(currentAnalysis.themes||[]).join(', ')}. Original: "${currentAnalysis.original_caption||''}". Réponds uniquement avec la légende.`;currentCaption=(await callClaude([{role:'user',content:msg}])).trim();document.getElementById('caption-area').innerHTML=`<div class="caption-box">${currentCaption}</div>`;clearStatus('clone-status');}catch(e){setStatus('clone-status','Erreur: '+e.message,'error');}}
+function editCaption(){document.getElementById('caption-area').innerHTML=`<textarea class="caption-edit" id="cap-ta">${currentCaption}</textarea>`;document.getElementById('caption-actions').innerHTML=`<button class="btn primary" onclick="saveCaptionEdit()">Sauvegarder</button><button class="btn" onclick="cancelCaptionEdit()">Annuler</button>`;}
+function saveCaptionEdit(){currentCaption=document.getElementById('cap-ta').value;document.getElementById('caption-area').innerHTML=`<div class="caption-box">${currentCaption}</div>`;document.getElementById('caption-actions').innerHTML=`<button class="btn" onclick="copyCaption()">Copier</button><button class="btn" onclick="regenCaption()">Regénérer</button><button class="btn" onclick="editCaption()">Modifier</button>`;}
+function cancelCaptionEdit(){document.getElementById('caption-area').innerHTML=`<div class="caption-box">${currentCaption}</div>`;document.getElementById('caption-actions').innerHTML=`<button class="btn" onclick="copyCaption()">Copier</button><button class="btn" onclick="regenCaption()">Regénérer</button><button class="btn" onclick="editCaption()">Modifier</button>`;}
+function downloadPost(){if(!selectedMatchSrc)return;const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1080;const ctx=canvas.getContext('2d'),img=new Image();img.crossOrigin='anonymous';img.onload=()=>{const s=Math.max(1080/img.width,1080/img.height),w=img.width*s,h=img.height*s;ctx.drawImage(img,(1080-w)/2,(1080-h)/2,w,h);const a=document.createElement('a');a.download='instacopy_post.jpg';a.href=canvas.toDataURL('image/jpeg',0.95);a.click();};img.src=selectedMatchSrc;}
+async function saveToHistory(){if(!sb||!currentCaption)return;await sb.from('history').insert({caption:currentCaption,post_url:document.getElementById('insta-url').value||'',owner:currentAnalysis?.mood||'',photo_url:selectedMatchSrc||''});setStatus('clone-status','Sauvegardé !','success');setTimeout(()=>clearStatus('clone-status'),2000);}
  
-function renderMatches(ranked, sample) {
-  document.getElementById('matches-card').style.display='block';
-  const top3 = ranked.slice(0,3);
-  document.getElementById('matches-grid').innerHTML = top3.map((r,i) => {
-    const p = sample[r.index];
-    if (!p) return '';
-    return `<div class="match-card" onclick="selectMatch(this,'${p.url}')" data-url="${p.url}">
-      <img src="${p.url}" loading="lazy">
-      <span class="score-badge">${r.score}%</span>
-    </div>`;
-  }).join('');
-}
+async function loadCompetitors(){if(!sb)return;const{data}=await sb.from('competitors').select('*').order('created_at');competitors=data||[];renderCompetitors();}
+async function loadSpyPosts(){if(!sb)return;const{data}=await sb.from('spy_posts').select('*').order('likes',{ascending:false});spyPosts=data||[];renderSpyPosts();}
  
-function renderFallbackMatches(sample) {
-  document.getElementById('matches-card').style.display='block';
-  document.getElementById('matches-grid').innerHTML = sample.slice(0,3).map((p,i) =>
-    `<div class="match-card" onclick="selectMatch(this,'${p.url}')" data-url="${p.url}">
-      <img src="${p.url}" loading="lazy">
-    </div>`).join('');
-}
- 
-function selectMatch(el, src) {
-  document.querySelectorAll('.match-card').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedMatchSrc = src;
-  const preview = document.getElementById('result-preview');
-  preview.innerHTML = `
-    <img src="${src}" style="width:100%;height:100%;object-fit:cover">
-    <div class="result-overlay">${currentCaption.substring(0,80)}...</div>`;
-  document.getElementById('dl-btn').style.display='inline-flex';
-  document.getElementById('save-hist-btn').style.display='inline-flex';
-}
- 
-function copyCaption() {
-  navigator.clipboard.writeText(currentCaption).then(()=>{
-    setStatus('clone-status','Légende copiée !','success');
-    setTimeout(()=>clearStatus('clone-status'),2000);
-  });
-}
- 
-async function regenCaption() {
-  if (!currentAnalysis) return;
-  setStatus('clone-status','Génération d\'une nouvelle version...','info');
-  try {
-    const msg = `Génère une nouvelle légende Instagram en français, différente mais même ton motivant. Thèmes: ${(currentAnalysis.themes||[]).join(', ')}. Original: "${currentAnalysis.original_caption||''}". Réponds uniquement avec la légende.`;
-    currentCaption = (await callClaude([{role:'user',content:msg}])).trim();
-    document.getElementById('caption-area').innerHTML = `<div class="caption-box">${currentCaption}</div>`;
-    clearStatus('clone-status');
-  } catch(e) { setStatus('clone-status','Erreur: '+e.message,'error'); }
-}
- 
-function editCaption() {
-  document.getElementById('caption-area').innerHTML = `<textarea class="caption-edit" id="cap-ta">${currentCaption}</textarea>`;
-  document.getElementById('caption-actions').innerHTML = `
-    <button class="btn primary" onclick="saveCaptionEdit()">Sauvegarder</button>
-    <button class="btn" onclick="cancelCaptionEdit()">Annuler</button>`;
-}
-function saveCaptionEdit() {
-  currentCaption = document.getElementById('cap-ta').value;
-  document.getElementById('caption-area').innerHTML = `<div class="caption-box">${currentCaption}</div>`;
-  document.getElementById('caption-actions').innerHTML = `
-    <button class="btn" onclick="copyCaption()">Copier</button>
-    <button class="btn" onclick="regenCaption()">Regénérer</button>
-    <button class="btn" onclick="editCaption()">Modifier</button>`;
-}
-function cancelCaptionEdit() {
-  document.getElementById('caption-area').innerHTML = `<div class="caption-box">${currentCaption}</div>`;
-  document.getElementById('caption-actions').innerHTML = `
-    <button class="btn" onclick="copyCaption()">Copier</button>
-    <button class="btn" onclick="regenCaption()">Regénérer</button>
-    <button class="btn" onclick="editCaption()">Modifier</button>`;
-}
- 
-function downloadPost() {
-  if (!selectedMatchSrc) return;
-  const canvas = document.createElement('canvas');
-  canvas.width = 1080; canvas.height = 1080;
-  const ctx = canvas.getContext('2d');
-  const img = new Image(); img.crossOrigin='anonymous';
-  img.onload = () => {
-    const s = Math.max(1080/img.width, 1080/img.height);
-    const w = img.width*s, h = img.height*s;
-    ctx.drawImage(img,(1080-w)/2,(1080-h)/2,w,h);
-    const a = document.createElement('a');
-    a.download='instacopy_post.jpg';
-    a.href=canvas.toDataURL('image/jpeg',0.95);
-    a.click();
-  };
-  img.src = selectedMatchSrc;
-}
- 
-async function saveToHistory() {
-  if (!sb || !currentCaption) return;
-  await sb.from('history').insert({
-    caption: currentCaption,
-    post_url: document.getElementById('insta-url').value||'',
-    owner: currentAnalysis?.mood||'',
-    photo_url: selectedMatchSrc||''
-  });
-  setStatus('clone-status','Sauvegardé dans l\'historique','success');
-  setTimeout(()=>clearStatus('clone-status'),2000);
-}
- 
-// ─── SPY ──────────────────────────────────────────────────────────────────────
-async function loadCompetitors() {
-  if (!sb) return;
-  const { data } = await sb.from('competitors').select('*').order('created_at');
-  competitors = data||[];
-  renderCompetitors();
-}
- 
-async function loadSpyPosts() {
-  if (!sb) return;
-  const { data } = await sb.from('spy_posts').select('*').order('likes',{ascending:false});
-  spyPosts = data||[];
-  renderSpyPosts();
-}
- 
-async function addCompetitor() {
-  if (!sb) { alert('Connecte Supabase d\'abord'); return; }
-  let raw = document.getElementById('new-handle').value.trim().replace('@','');
-  const m = raw.match(/instagram\.com\/([^/?]+)/);
-  const handle = m ? m[1] : raw;
-  if (!handle) return;
+async function addCompetitor(){
+  if(!sb){alert('Connecte Supabase d\'abord');return;}
+  let raw=document.getElementById('new-handle').value.trim().replace('@','');
+  const m=raw.match(/instagram\.com\/([^/?]+)/),handle=m?m[1]:raw;if(!handle)return;
   await sb.from('competitors').upsert({handle},{onConflict:'handle'});
-  document.getElementById('new-handle').value='';
-  await loadCompetitors();
+  document.getElementById('new-handle').value='';await loadCompetitors();
 }
  
-function renderCompetitors() {
-  document.getElementById('comp-count').textContent = competitors.length;
-  const wrap = document.getElementById('scrape-all-wrap');
-  wrap.style.display = competitors.length ? 'flex' : 'none';
-  const list = document.getElementById('comp-list');
-  if (!competitors.length) { list.innerHTML='<div class="empty-state" style="padding:1rem">Aucun concurrent</div>'; return; }
-  list.innerHTML = competitors.map(c => {
-    const badge = c.status==='done'
-      ? `<span class="badge green">${c.post_count} posts</span>`
-      : c.status==='loading'
-      ? `<span class="badge blue"><div class="spinner" style="width:10px;height:10px;border-width:1.5px;display:inline-block;margin-right:4px"></div>En cours</span>`
-      : c.status==='error'
-      ? `<span class="badge red">Erreur</span>`
-      : `<span class="badge gray">Non scrappé</span>`;
-    return `<div class="comp-row">
-      <div class="avatar">${c.handle.substring(0,2).toUpperCase()}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-size:14px;font-weight:500">@${c.handle}</div>
-        <div style="font-size:11px;color:#aaa">${c.last_scraped ? 'Mis à jour '+new Date(c.last_scraped).toLocaleDateString('fr-FR') : 'Jamais scrappé'}</div>
-      </div>
-      ${badge}
-      <button class="btn" onclick="scrapeOne('${c.handle}')" style="font-size:12px;padding:5px 10px" ${c.status==='loading'?'disabled':''}>Scraper</button>
-      <button class="btn" onclick="removeCompetitor('${c.handle}')" style="font-size:12px;padding:5px 10px;color:#dc2626">✕</button>
-    </div>`;
-  }).join('');
+function renderCompetitors(){
+  document.getElementById('comp-count').textContent=competitors.length;
+  document.getElementById('scrape-all-wrap').style.display=competitors.length?'flex':'none';
+  const list=document.getElementById('comp-list');
+  if(!competitors.length){list.innerHTML='<div class="empty-state" style="padding:1rem">Aucun concurrent</div>';return;}
+  list.innerHTML=competitors.map(c=>{const badge=c.status==='done'?`<span class="badge green">${c.post_count} posts</span>`:c.status==='loading'?`<span class="badge blue"><div class="spinner" style="width:10px;height:10px;border-width:1.5px;display:inline-block;margin-right:4px"></div>En cours</span>`:c.status==='error'?`<span class="badge red">Erreur</span>`:`<span class="badge gray">Non scrappé</span>`;return`<div class="comp-row"><div class="avatar">${c.handle.substring(0,2).toUpperCase()}</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">@${c.handle}</div><div style="font-size:11px;color:#aaa">${c.last_scraped?'Mis à jour '+new Date(c.last_scraped).toLocaleDateString('fr-FR'):'Jamais scrappé'}</div></div>${badge}<button class="btn" onclick="scrapeOne('${c.handle}')" style="font-size:12px;padding:5px 10px" ${c.status==='loading'?'disabled':''}>Scraper</button><button class="btn" onclick="removeCompetitor('${c.handle}')" style="font-size:12px;padding:5px 10px;color:#dc2626">✕</button></div>`;}).join('');
 }
  
-async function removeCompetitor(handle) {
-  await sb.from('competitors').delete().eq('handle',handle);
-  await sb.from('spy_posts').delete().eq('owner',handle);
-  await loadCompetitors();
-  await loadSpyPosts();
-}
+async function removeCompetitor(handle){await sb.from('competitors').delete().eq('handle',handle);await sb.from('spy_posts').delete().eq('owner',handle);await loadCompetitors();await loadSpyPosts();}
  
-async function scrapeOne(handle) {
-  const apifyKey = getKey('apify-key');
-  if (!apifyKey) { setStatus('spy-status','Entre ta clé Apify dans Config','error'); return; }
- 
-  await sb.from('competitors').update({status:'loading'}).eq('handle',handle);
-  await loadCompetitors();
+async function scrapeOne(handle){
+  const apifyKey=getKey('apify-key');if(!apifyKey){setStatus('spy-status','Entre ta clé Apify dans Config','error');return;}
+  await sb.from('competitors').update({status:'loading'}).eq('handle',handle);await loadCompetitors();
   setStatus('spy-status',`Scraping @${handle}... (30-90 sec)`,'info');
- 
-  try {
-    const limit = parseInt(document.getElementById('posts-limit')?.value||'30');
-    const runRes = await fetch('https://api.apify.com/v2/acts/apify~instagram-scraper/runs', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':`Bearer ${apifyKey}`},
-      body:JSON.stringify({usernames:[handle],resultsLimit:200})
-    });
-    if (!runRes.ok) { const e=await runRes.json(); throw new Error(e.error?.message||'Apify error '+runRes.status); }
-    const run = await runRes.json();
-    const runId = run.data?.id;
-    if (!runId) throw new Error('Run ID manquant');
-    await pollApifyRun(runId, apifyKey, handle);
-  } catch(e) {
-    await sb.from('competitors').update({status:'error'}).eq('handle',handle);
-    await loadCompetitors();
-    setStatus('spy-status','Erreur: '+e.message,'error');
-  }
+  try{
+    const runRes=await fetch('https://api.apify.com/v2/acts/apify~instagram-scraper/runs',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${apifyKey}`},body:JSON.stringify({usernames:[handle],resultsLimit:200})});
+    if(!runRes.ok){const e=await runRes.json();throw new Error(e.error?.message||'Apify error '+runRes.status);}
+    const run=await runRes.json(),runId=run.data?.id;if(!runId)throw new Error('Run ID manquant');
+    await pollApifyRun(runId,apifyKey,handle);
+  }catch(e){await sb.from('competitors').update({status:'error'}).eq('handle',handle);await loadCompetitors();setStatus('spy-status','Erreur: '+e.message,'error');}
 }
  
-async function pollApifyRun(runId, key, handle) {
-  const start = Date.now();
-  while (Date.now()-start < 120000) {
+async function pollApifyRun(runId,key,handle){
+  const start=Date.now();
+  while(Date.now()-start<120000){
     await new Promise(r=>setTimeout(r,5000));
-    const r = await fetch(`https://api.apify.com/v2/actor-runs/${runId}`,{headers:{'Authorization':`Bearer ${key}`}});
-    const d = await r.json();
-    const st = d.data?.status;
-    if (st==='SUCCEEDED') { await fetchApifyResults(runId,key,handle); return; }
-    if (['FAILED','ABORTED','TIMED-OUT'].includes(st)) throw new Error('Run échoué: '+st);
+    const r=await fetch(`https://api.apify.com/v2/actor-runs/${runId}`,{headers:{'Authorization':`Bearer ${key}`}});
+    const d=await r.json(),st=d.data?.status;
+    if(st==='SUCCEEDED'){await fetchApifyResults(runId,key,handle);return;}
+    if(['FAILED','ABORTED','TIMED-OUT'].includes(st))throw new Error('Run échoué: '+st);
   }
-  throw new Error('Timeout — réessaie plus tard');
+  throw new Error('Timeout');
 }
  
-async function fetchApifyResults(runId, key, handle) {
-  const r = await fetch(`https://api.apify.com/v2/actor-runs/${runId}/dataset/items?token=${key}&limit=100`);
-  const items = await r.json();
-  const posts = [];
- 
-  for (const item of (Array.isArray(items)?items:[items])) {
-    const rawPosts = item.latestPosts||item.posts||(item.shortCode?[item]:[]);
-    for (const p of rawPosts) {
-      const type = p.type==='Sidecar'?'carousel':p.type==='Video'?'reel':'image';
-      const slides = (p.images||p.sidecarImages||[]).map((s,i)=>({index:i,url:s.url||s.displayUrl||''}));
-      if (!slides.length && p.displayUrl) slides.push({index:0,url:p.displayUrl});
-      posts.push({
-        id: p.id||p.shortCode||Math.random().toString(36).slice(2),
-        owner: handle, type,
-        likes: p.likesCount||p.likes||0,
-        comments: p.commentsCount||p.comments||0,
-        views: p.videoViewCount||p.views||0,
-        caption: p.caption||'',
-        display_url: p.displayUrl||slides[0]?.url||'',
-        slides: JSON.stringify(slides),
-        url: `https://instagram.com/p/${p.shortCode||''}`
-      });
+async function fetchApifyResults(runId,key,handle){
+  const r=await fetch(`https://api.apify.com/v2/actor-runs/${runId}/dataset/items?token=${key}&limit=100`);
+  const items=await r.json();const posts=[];
+  for(const item of(Array.isArray(items)?items:[items])){
+    const rawPosts=item.latestPosts||item.posts||(item.shortCode?[item]:[]);
+    for(const p of rawPosts){
+      const type=p.type==='Sidecar'?'carousel':p.type==='Video'?'reel':'image';
+      const slides=(p.images||p.sidecarImages||[]).map((s,i)=>({index:i,url:s.url||s.displayUrl||''}));
+      if(!slides.length&&p.displayUrl)slides.push({index:0,url:p.displayUrl});
+      posts.push({id:p.id||p.shortCode||Math.random().toString(36).slice(2),owner:handle,type,likes:p.likesCount||p.likes||0,comments:p.commentsCount||p.comments||0,views:p.videoViewCount||p.views||0,caption:p.caption||'',display_url:p.displayUrl||slides[0]?.url||'',slides:JSON.stringify(slides),url:`https://instagram.com/p/${p.shortCode||''}`});
     }
   }
- 
-  if (posts.length) {
-    await sb.from('spy_posts').delete().eq('owner',handle);
-    for (let i=0;i<posts.length;i+=20) {
-      await sb.from('spy_posts').upsert(posts.slice(i,i+20),{onConflict:'id'});
-    }
-  }
- 
+  if(posts.length){await sb.from('spy_posts').delete().eq('owner',handle);for(let i=0;i<posts.length;i+=20)await sb.from('spy_posts').upsert(posts.slice(i,i+20),{onConflict:'id'});}
   await sb.from('competitors').update({status:'done',post_count:posts.length,last_scraped:new Date().toISOString()}).eq('handle',handle);
-  await loadCompetitors();
-  await loadSpyPosts();
-  clearStatus('spy-status');
-  setStatus('spy-status',`${posts.length} posts récupérés pour @${handle}` ,'success');
-  setTimeout(()=>clearStatus('spy-status'),4000);
+  await loadCompetitors();await loadSpyPosts();clearStatus('spy-status');
+  setStatus('spy-status',`${posts.length} posts récupérés pour @${handle}`,'success');setTimeout(()=>clearStatus('spy-status'),4000);
 }
  
-async function scrapeAll() {
-  for (const c of competitors) {
-    if (c.status!=='loading') { await scrapeOne(c.handle); await new Promise(r=>setTimeout(r,2000)); }
+async function scrapeAll(){for(const c of competitors){if(c.status!=='loading'){await scrapeOne(c.handle);await new Promise(r=>setTimeout(r,2000));}}}
+ 
+async function importApifyJSON(e){
+  const file=e.target.files[0];if(!file||!sb)return;
+  setStatus('spy-status','Import en cours...','info');
+  const text=await file.text(),data=JSON.parse(text);
+  const handle=data[0]?.user?.username||data[0]?.owner?.username||'inconnu';
+  const posts=data.filter(p=>p.type!=='Video'&&p.type!=='video').map(p=>{
+    const slides=(p.carousel_media||[]).map((s,i)=>({index:i,url:s.image_versions2?.candidates?.[0]?.url||s.display_uri||''}));
+    if(!slides.length&&p.image)slides.push({index:0,url:p.image});
+    return{id:p.pk||p.shortcode||Math.random().toString(36).slice(2),owner:handle,type:slides.length>1?'carousel':'image',likes:p.like_count||0,comments:p.comment_count||0,views:p.view_count||0,caption:p.caption||'',display_url:slides[0]?.url||p.image||'',slides:JSON.stringify(slides),url:p.post_url||''};
+  });
+  for(let i=0;i<posts.length;i+=20)await sb.from('spy_posts').upsert(posts.slice(i,i+20),{onConflict:'id'});
+  await sb.from('competitors').upsert({handle,status:'done',post_count:posts.length,last_scraped:new Date().toISOString()},{onConflict:'handle'});
+  await loadCompetitors();await loadSpyPosts();
+  setStatus('spy-status',`${posts.length} posts importés avec toutes les slides !`,'success');setTimeout(()=>clearStatus('spy-status'),3000);e.target.value='';
+}
+ 
+async function analyzeRecurringPhotos(){
+  if(!spyPosts.length){setStatus('spy-status','Importe des posts d\'abord','error');return;}
+  const resultsEl=document.getElementById('recurring-results');
+  resultsEl.innerHTML='<div class="status info"><div class="spinner"></div> Chargement de toutes les slides...</div>';
+  const allSlides=[];
+  for(const post of spyPosts){let slides=[];try{slides=JSON.parse(post.slides||'[]');}catch{}for(const slide of slides){if(slide.url)allSlides.push({url:slide.url,postId:post.id,postLikes:post.likes,postUrl:post.url,owner:post.owner});}}
+  if(!allSlides.length){resultsEl.innerHTML='<div class="status error">✗ Aucune slide trouvée</div>';return;}
+  resultsEl.innerHTML=`<div class="status info"><div class="spinner"></div> Analyse de ${allSlides.length} slides par Claude Vision... (1-2 min)</div>`;
+  const batchSize=8,batches=[];
+  for(let i=0;i<allSlides.length;i+=batchSize)batches.push(allSlides.slice(i,i+batchSize));
+  const allDescriptions=[];let processed=0;
+  for(const batch of batches){
+    const imgMsgs=[],batchMeta=[];
+    for(const slide of batch){try{const r=await fetch(slide.url);if(!r.ok)continue;const blob=await r.blob(),b64=await blobToB64(blob);imgMsgs.push({type:'image',source:{type:'base64',media_type:blob.type||'image/jpeg',data:b64.split(',')[1]}});batchMeta.push(slide);}catch(e){continue;}}
+    if(!imgMsgs.length)continue;
+    try{
+      const sys=`Tu es expert en analyse visuelle Instagram. Pour chaque image, donne une description courte et précise du SUJET VISUEL PRINCIPAL (ignore le texte superposé). Format JSON strict: {"descriptions":["description1","description2",...]} — autant de descriptions que d'images, dans le même ordre.`;
+      const msgs=[{role:'user',content:[...imgMsgs,{type:'text',text:`Décris chacune de ces ${imgMsgs.length} images en 5-8 mots max. Focus sur le sujet visuel (personne, objet, lieu, style). Ignore tout texte superposé.`}]}];
+      const raw=await callClaude(msgs,sys);
+      (JSON.parse(raw.replace(/```json|```/g,'').trim()).descriptions||[]).forEach((desc,i)=>{if(batchMeta[i])allDescriptions.push({...batchMeta[i],description:desc});});
+    }catch(e){console.error('Batch error:',e);}
+    processed+=batch.length;
+    resultsEl.innerHTML=`<div class="status info"><div class="spinner"></div> Analysé ${processed}/${allSlides.length} slides...</div>`;
   }
+  resultsEl.innerHTML='<div class="status info"><div class="spinner"></div> Regroupement...</div>';
+  const groups={};
+  for(const item of allDescriptions){const key=normalizeDesc(item.description);if(!groups[key])groups[key]={description:item.description,slides:[],totalLikes:0};groups[key].slides.push(item);groups[key].totalLikes+=item.postLikes||0;}
+  const sorted=Object.values(groups).sort((a,b)=>b.slides.length-a.slides.length);
+  resultsEl.innerHTML=`
+    <div style="font-size:13px;font-weight:500;margin-bottom:12px;color:#666">${sorted.length} types de visuels identifiés sur ${allSlides.length} slides analysées</div>
+    <div class="recurring-grid">
+      ${sorted.map(g=>`<div class="recurring-card">
+        <div class="recurring-thumb">
+          <img src="${g.slides[0].url}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.style.display='none'">
+          <div class="recurring-count">${g.slides.length}x utilisée</div>
+          ${g.slides.length>1?`<div class="recurring-previews">${g.slides.slice(1,4).map(s=>`<img src="${s.url}" onerror="this.style.display='none'">`).join('')}</div>`:''}
+        </div>
+        <div class="recurring-body">
+          <div style="font-size:12px;font-weight:500;margin-bottom:4px">${g.description}</div>
+          <div style="font-size:11px;color:#888">♥ ${g.totalLikes.toLocaleString('fr-FR')} likes cumulés</div>
+          <div style="font-size:11px;color:#888;margin-top:2px">Dans ${g.slides.length} post${g.slides.length>1?'s':''}</div>
+        </div>
+      </div>`).join('')}
+    </div>`;
 }
  
-function setSpyFilter(f,el) {
-  spyFilter=f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  renderSpyPosts();
-}
+function normalizeDesc(desc){return desc.toLowerCase().replace(/[àâä]/g,'a').replace(/[éèêë]/g,'e').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u').replace(/[^a-z0-9\s]/g,'').trim().split(' ').sort().join(' ');}
  
-function renderSpyPosts() {
-  const container = document.getElementById('spy-posts-container');
-  const statsEl = document.getElementById('spy-stats');
-  const filtersEl = document.getElementById('spy-filters');
+function setSpyFilter(f,el){spyFilter=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderSpyPosts();}
  
-  if (!spyPosts.length) {
-    container.innerHTML='<div class="empty-state">Lance un scraping depuis le panneau Concurrents.</div>';
-    statsEl.style.display='none'; filtersEl.style.display='none'; return;
-  }
- 
-  statsEl.style.display='grid'; filtersEl.style.display='flex';
+function renderSpyPosts(){
+  const container=document.getElementById('spy-posts-container'),statsEl=document.getElementById('spy-stats'),filtersEl=document.getElementById('spy-filters');
+  if(!spyPosts.length){container.innerHTML='<div class="empty-state">Importe un JSON ou lance un scraping.</div>';statsEl.style.display='none';filtersEl.style.display='none';return;}
+  statsEl.style.display='grid';filtersEl.style.display='flex';
   const handles=[...new Set(spyPosts.map(p=>p.owner))];
   document.getElementById('s-posts').textContent=spyPosts.length;
-  document.getElementById('s-slides').textContent=spyPosts.reduce((s,p)=>{try{return s+(JSON.parse(p.slides||'[]')).length}catch{return s+1}},0);
+  document.getElementById('s-slides').textContent=spyPosts.reduce((s,p)=>{try{return s+(JSON.parse(p.slides||'[]')).length;}catch{return s+1;}},0);
   document.getElementById('s-comps').textContent=handles.length;
- 
-  const cf=document.getElementById('comp-filter');
-  const sel=cf.value;
+  const cf=document.getElementById('comp-filter'),sel=cf.value;
   cf.innerHTML='<option value="">Tous les comptes</option>'+handles.map(h=>`<option value="${h}" ${h===sel?'selected':''}">@${h}</option>`).join('');
-  if(sel) cf.value=sel;
- 
+  if(sel)cf.value=sel;
   let filtered=[...spyPosts];
-  if(cf.value) filtered=filtered.filter(p=>p.owner===cf.value);
-  if(spyFilter!=='all') filtered=filtered.filter(p=>p.type===spyFilter);
+  if(cf.value)filtered=filtered.filter(p=>p.owner===cf.value);
+  if(spyFilter!=='all')filtered=filtered.filter(p=>p.type===spyFilter);
   filtered.sort((a,b)=>(b.likes+b.comments*3)-(a.likes+a.comments*3));
- 
   container.innerHTML=`<div class="posts-grid">${filtered.map((p,i)=>`
     <div class="post-card" onclick="openModal('${p.id}')">
       <div class="post-thumb" style="${!p.display_url?'display:flex;align-items:center;justify-content:center;color:#ccc;font-size:12px':''}">
-        ${p.display_url?`<img src="${p.display_url}" loading="lazy" onerror="this.style.display='none'">` : 'Pas de preview'}
-        ${(()=>{try{const s=JSON.parse(p.slides||'[]');return s.length>1?`<span class="slides-badge">${s.length} slides</span>`:'';}catch{return ''}})()}
+        ${p.display_url?`<img src="${p.display_url}" loading="lazy" onerror="this.style.display='none'">`:'Pas de preview'}
+        ${(()=>{try{const s=JSON.parse(p.slides||'[]');return s.length>1?`<span class="slides-badge">${s.length} slides</span>`:'';}catch{return '';}})()}
         <span class="rank-num">${i+1}</span>
       </div>
       <div class="post-body">
-        <div class="post-stats">
-          <span>♥ ${(p.likes||0).toLocaleString('fr-FR')}</span>
-          <span>💬 ${(p.comments||0).toLocaleString('fr-FR')}</span>
-          ${p.views?`<span>▶ ${(p.views||0).toLocaleString('fr-FR')}</span>`:''}
-        </div>
+        <div class="post-stats"><span>♥ ${(p.likes||0).toLocaleString('fr-FR')}</span><span>💬 ${(p.comments||0).toLocaleString('fr-FR')}</span>${p.views?`<span>▶ ${(p.views||0).toLocaleString('fr-FR')}</span>`:''}</div>
         <div class="post-caption">${p.caption||'(pas de légende)'}</div>
         <div style="margin-top:6px"><span class="tag">@${p.owner}</span><span class="tag">${p.type}</span></div>
       </div>
     </div>`).join('')}</div>`;
 }
  
-function openModal(id) {
-  const post = spyPosts.find(p=>p.id===id);
-  if(!post) return;
-  let slides=[];
-  try{slides=JSON.parse(post.slides||'[]');}catch{}
-  if(!slides.length && post.display_url) slides=[{index:0,url:post.display_url}];
- 
+function openModal(id){
+  const post=spyPosts.find(p=>p.id===id);if(!post)return;
+  let slides=[];try{slides=JSON.parse(post.slides||'[]');}catch{}
+  if(!slides.length&&post.display_url)slides=[{index:0,url:post.display_url}];
   document.getElementById('modal-title').textContent=`@${post.owner} — ${slides.length} slide(s) — ♥ ${(post.likes||0).toLocaleString('fr-FR')}`;
-  document.getElementById('modal-strip').innerHTML=slides.map((s,i)=>`
-    <div class="slide-mini">
-      ${s.url?`<img src="${s.url}" loading="lazy" onerror="this.style.display='none'">`:''}<span class="snum">${i+1}</span>
-    </div>`).join('');
+  document.getElementById('modal-strip').innerHTML=slides.map((s,i)=>`<div class="slide-mini">${s.url?`<img src="${s.url}" loading="lazy" onerror="this.style.display='none'">`:''}<span class="snum">${i+1}</span></div>`).join('');
   document.getElementById('modal-caption').textContent=post.caption||'(pas de légende)';
-  document.getElementById('modal-actions').innerHTML=`
-    <button class="btn" onclick="copyTxt('${(post.caption||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')">Copier légende</button>
-    ${post.url?`<a href="${post.url}" target="_blank" class="btn">Voir sur Instagram</a>`:''}
-    <button class="btn primary" onclick="cloneThisPost('${id}')">Cloner ce post →</button>`;
+  document.getElementById('modal-actions').innerHTML=`<button class="btn" onclick="copyTxt('${(post.caption||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')">Copier légende</button>${post.url?`<a href="${post.url}" target="_blank" class="btn">Voir sur Instagram</a>`:''}<button class="btn primary" onclick="cloneThisPost('${id}')">Cloner ce post →</button>`;
   document.getElementById('slide-modal').style.display='block';
 }
- 
-function closeModal() { document.getElementById('slide-modal').style.display='none'; }
- 
-function copyTxt(t) { navigator.clipboard.writeText(t); setStatus('spy-status','Légende copiée !','success'); setTimeout(()=>clearStatus('spy-status'),2000); }
- 
-function cloneThisPost(id) {
-  const post=spyPosts.find(p=>p.id===id);
-  closeModal();
-  if(post) {
+function closeModal(){document.getElementById('slide-modal').style.display='none';}
+function copyTxt(t){navigator.clipboard.writeText(t);setStatus('spy-status','Légende copiée !','success');setTimeout(()=>clearStatus('spy-status'),2000);}
+function cloneThisPost(id){
+  const post=spyPosts.find(p=>p.id===id);closeModal();
+  if(post){
     switchTab('clone',document.querySelectorAll('.tab')[2]);
-    document.getElementById('insta-url').value=post.url||'';
-    currentPostImg=null;
-    document.getElementById('paste-area').innerHTML=`<div style="font-size:20px">📷</div><span>Ou colle / glisse un screenshot</span><input type="file" id="post-img-input" accept="image/*" onchange="handlePostImg(event)">`;
-    if(post.display_url){
-      const pa=document.getElementById('paste-area');
-      pa.innerHTML=`<img src="${post.display_url}" style="max-height:180px;border-radius:6px"><input type="file" id="post-img-input" accept="image/*" onchange="handlePostImg(event)" style="display:none">`;
-    }
+    document.getElementById('insta-url').value=post.url||'';currentPostImg=null;
+    const pa=document.getElementById('paste-area');
+    if(post.display_url)pa.innerHTML=`<img src="${post.display_url}" style="max-height:180px;border-radius:6px"><input type="file" id="post-img-input" accept="image/*" onchange="handlePostImg(event)" style="display:none">`;
+    else pa.innerHTML=`<div style="font-size:20px">📷</div><span>Ou colle / glisse un screenshot</span><input type="file" id="post-img-input" accept="image/*" onchange="handlePostImg(event)">`;
   }
 }
  
-// ─── HISTORY ──────────────────────────────────────────────────────────────────
-async function loadHistory() {
-  if (!sb) return;
-  const { data } = await sb.from('history').select('*').order('created_at',{ascending:false}).limit(50);
-  history = data||[];
-  renderHistory();
-}
- 
-function renderHistory() {
-  const list=document.getElementById('hist-list');
-  const empty=document.getElementById('hist-empty');
+async function loadHistory(){if(!sb)return;const{data}=await sb.from('history').select('*').order('created_at',{ascending:false}).limit(50);history=data||[];renderHistory();}
+function renderHistory(){
+  const list=document.getElementById('hist-list'),empty=document.getElementById('hist-empty');
   if(!history.length){list.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
-  list.innerHTML=history.map(h=>`
-    <div class="hist-card">
-      ${h.photo_url?`<img src="${h.photo_url}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;flex-shrink:0" onerror="this.style.display='none'">` :''}
-      <div style="flex:1;min-width:0">
-        <div style="font-size:11px;color:#aaa;margin-bottom:4px">${new Date(h.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
-        <div style="font-size:13px;line-height:1.5">${(h.caption||'').substring(0,150)}${(h.caption||'').length>150?'...':''}</div>
-      </div>
-      <button class="btn" onclick="navigator.clipboard.writeText('${(h.caption||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')" style="font-size:12px;padding:5px 10px;flex-shrink:0">Copier</button>
-    </div>`).join('');
+  list.innerHTML=history.map(h=>`<div class="hist-card">${h.photo_url?`<img src="${h.photo_url}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;flex-shrink:0" onerror="this.style.display='none'">`:''}<div style="flex:1;min-width:0"><div style="font-size:11px;color:#aaa;margin-bottom:4px">${new Date(h.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div><div style="font-size:13px;line-height:1.5">${(h.caption||'').substring(0,150)}${(h.caption||'').length>150?'...':''}</div></div><button class="btn" onclick="navigator.clipboard.writeText('${(h.caption||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')" style="font-size:12px;padding:5px 10px;flex-shrink:0">Copier</button></div>`).join('');
 }
- // ─── IMPORT APIFY JSON ───────────────────────────────────────────────────────
-async function importApifyJSON(e) {
-  const file = e.target.files[0];
-  if (!file || !sb) return;
-  setStatus('spy-status','Import en cours...','info');
-  const text = await file.text();
-  const data = JSON.parse(text);
-  const handle = data[0]?.user?.username || data[0]?.owner?.username || 'inconnu';
-  const posts = data
-    .filter(p => p.type !== 'Video' && p.type !== 'video')
-    .map(p => {
-      const slides = (p.carousel_media || []).map((s, i) => {
-        const url = s.image_versions2?.candidates?.[0]?.url || s.display_uri || '';
-        return { index: i, url };
-      });
-      if (!slides.length && p.image) slides.push({ index: 0, url: p.image });
-      return {
-        id: p.pk || p.shortcode || Math.random().toString(36).slice(2),
-        owner: handle,
-        type: slides.length > 1 ? 'carousel' : 'image',
-        likes: p.like_count || 0,
-        comments: p.comment_count || 0,
-        views: p.view_count || 0,
-        caption: p.caption || '',
-        display_url: slides[0]?.url || p.image || '',
-        slides: JSON.stringify(slides),
-        url: p.post_url || ''
-      };
-    });
-  for (let i = 0; i < posts.length; i += 20) {
-    await sb.from('spy_posts').upsert(posts.slice(i, i+20), { onConflict: 'id' });
-  }
-  await sb.from('competitors').upsert(
-    { handle, status: 'done', post_count: posts.length, last_scraped: new Date().toISOString() },
-    { onConflict: 'handle' }
-  );
-  await loadCompetitors();
-  await loadSpyPosts();
-  setStatus('spy-status', `${posts.length} posts importés avec toutes les slides !`, 'success');
-  setTimeout(() => clearStatus('spy-status'), 3000);
-  e.target.value = '';
-}
-// ─── AUTO INIT ────────────────────────────────────────────────────────────────
-window.addEventListener('paste', e => {
-  const item=Array.from(e.clipboardData.items).find(i=>i.type.startsWith('image/'));
-  if(item) handlePostImgFile(item.getAsFile());
-});
  
-// Auto-connect from localStorage
-const savedUrl=localStorage.getItem('sb_url');
-const savedKey=localStorage.getItem('sb_key');
-if(savedUrl && savedKey) {
-  document.getElementById('sb-url').value=savedUrl;
-  document.getElementById('sb-key').value=savedKey;
-  initSupabase();
-}
+window.addEventListener('paste',e=>{const item=Array.from(e.clipboardData.items).find(i=>i.type.startsWith('image/'));if(item)handlePostImgFile(item.getAsFile());});
+const savedUrl=localStorage.getItem('sb_url'),savedKey=localStorage.getItem('sb_key');
+if(savedUrl&&savedKey){document.getElementById('sb-url').value=savedUrl;document.getElementById('sb-key').value=savedKey;initSupabase();}
 </script>
 </body>
 </html>
+ 
