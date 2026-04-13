@@ -799,7 +799,7 @@ async function scrapeOne(handle) {
  
   try {
     const limit = parseInt(document.getElementById('posts-limit')?.value||'30');
-    const runRes = await fetch('https://api.apify.com/v2/acts/apify~instagram-profile-scraper/runs', {
+    const runRes = await fetch('https://api.apify.com/v2/acts/apify~instagram-scraper/runs', {
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':`Bearer ${apifyKey}`},
       body:JSON.stringify({usernames:[handle],resultsLimit:200})
