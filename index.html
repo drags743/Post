@@ -802,7 +802,7 @@ async function scrapeOne(handle) {
     const runRes = await fetch('https://api.apify.com/v2/acts/apify~instagram-profile-scraper/runs', {
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':`Bearer ${apifyKey}`},
-      body:JSON.stringify({usernames:[handle],resultsLimit:limit})
+      body:JSON.stringify({usernames:[handle],resultsLimit:200})
     });
     if (!runRes.ok) { const e=await runRes.json(); throw new Error(e.error?.message||'Apify error '+runRes.status); }
     const run = await runRes.json();
