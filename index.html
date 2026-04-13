@@ -273,7 +273,14 @@ input[type=file]{display:none}
       <div class="stat-box"><div class="lbl">Slides stockées</div><div class="val" id="s-slides">0</div></div>
       <div class="stat-box"><div class="lbl">Concurrents</div><div class="val" id="s-comps">0</div></div>
     </div>
- 
+ <div class="card" style="margin-bottom:1rem">
+  <div class="card-title">Importer un export Apify (JSON)</div>
+  <div class="row">
+    <input type="file" id="json-import" accept=".json" style="display:none" onchange="importApifyJSON(event)">
+    <button class="btn primary" onclick="document.getElementById('json-import').click()">Importer JSON Apify</button>
+    <span style="font-size:12px;color:#888;align-self:center">Export depuis Apify → All fields → JSON</span>
+  </div>
+</div>
     <div class="card">
       <div class="card-title">Ajouter un concurrent</div>
       <div class="row">
